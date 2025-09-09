@@ -1,2 +1,14 @@
+# Node modules
 node_modules/
-node_modules/
+
+# 환경 변수
+.env
+
+# Vite 관련
+dist/
+.vite/
+
+# 로그 파일
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
