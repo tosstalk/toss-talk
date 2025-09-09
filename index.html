@@ -1,0 +1,85 @@
+<!DOCTYPE html> <!-- HTML5 문서임을 선언 -->
+<html lang="ko"> <!-- 문서의 언어를 한국어로 설정 -->
+<head>
+  <meta charset="UTF-8"> <!-- 문자 인코딩을 UTF-8로 설정 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 웹 설정 -->
+  <title>TossTalk</title> <!-- 브라우저 탭에 표시될 제목 -->
+  <!-- style -->
+  <link rel="stylesheet" href="/src/style.css"> <!-- 외부 CSS 파일 연결 -->
+</head>
+<body> <!-- 문서 본문 시작 -->
+
+<!-- 로그인 화면 -->
+<div id="loginScreen" class="login-wrapper"> <!-- 로그인 화면 전체 컨테이너 -->
+  <div class="login-box"> <!-- 로그인 박스 컨테이너 -->
+    <h1>TossTalk</h1> <!-- 서비스 제목 -->
+    <p class="login-desc">Google 계정으로 로그인</p> <!-- 로그인 안내 문구 -->
+    <button id="googleLoginBtn" class="google-btn"> <!-- 구글 로그인 버튼 -->
+      <span role="img" aria-label="google">&#x1F30F;</span> <!-- 버튼 아이콘 (지구 이모지) -->
+      Google 로그인 <!-- 버튼 텍스트 -->
+    </button>
+  </div>
+</div>
+
+<!-- 메인 화면 -->
+<div id="mainScreen" style="display:none;"> <!-- 로그인 후 표시될 메인 화면, 초기에는 숨김 -->
+  <header>💬 Toss-Talk 🗑️</header> <!-- 헤더 영역, 앱 이름과 이모지 포함 -->
+  
+  <!-- 유저 정보 -->
+  <div class="user-info"> <!-- 사용자 정보 영역 -->
+    <img id="userPhoto" style="display:none;"> <!-- 사용자 프로필 사진, 초기에는 숨김 -->
+    <span id="userName" style="display:none;"></span> <!-- 사용자 이름, 초기에는 숨김 -->
+    <button id="logoutBtn" style="display:none;">로그아웃</button> <!-- 로그아웃 버튼, 초기에는 숨김 -->
+  </div>
+
+  <!-- 상담 전 기분 모달 -->
+  <div id="moodModal" class="modal"> <!-- 사용자가 상담 시작 전에 기분을 선택하는 모달 -->
+    <div class="modal-content"> <!-- 모달 내용 영역 -->
+      <h3>현재 기분을 선택해주세요</h3> <!-- 안내 문구 -->
+      <div class="mood-options"> <!-- 기분 선택 버튼 그룹 -->
+        <button class="mood-btn">🤬</button> <!-- 화난 기분 -->
+        <button class="mood-btn">😡</button> <!-- 화난 기분 -->
+        <button class="mood-btn">😠</button> <!-- 화난 기분 -->
+        <button class="mood-btn">😭</button> <!-- 슬픈 기분 -->
+        <button class="mood-btn">😢</button> <!-- 슬픈 기분 -->
+        <button class="mood-btn">🥲</button> <!-- 슬프지만 참는 기분 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 상담 후 해소된 기분 모달 -->
+  <div id="resolvedMoodModal" class="modal"> <!-- 상담 후 해소된 기분을 선택하는 모달 -->
+    <div class="modal-content"> <!-- 모달 내용 영역 -->
+      <h3>해소된 기분을 선택해주세요</h3> <!-- 안내 문구 -->
+      <div class="mood-options"> <!-- 기분 선택 버튼 그룹 -->
+        <button class="resolved-btn" data-emoji="☺️">☺️</button> <!-- 긍정적인 기분 -->
+        <button class="resolved-btn" data-emoji="😌">😌</button> <!-- 편안한 기분 -->
+        <button class="resolved-btn" data-emoji="🙃">🙃</button> <!-- 복잡하지만 해소된 기분 -->
+        <button class="resolved-btn" data-emoji="❌">❌</button> <!-- 해소되지 않은 기분 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 채팅창 -->
+  <div id="chat"></div> <!-- 상담 메시지와 봇/사용자 대화를 표시하는 영역 -->
+
+  <!-- 고민 해소 버튼 -->
+  <button id="resolve-btn">고민이 해소되었습니까?</button> <!-- 사용자가 상담 후 기분 해소 여부 선택 -->
+
+  <!-- 쓰레기통 -->
+  <div id="trash-container"> <!-- 채팅 삭제 기능용 컨테이너 -->
+    <span id="trash">🗑️</span> <!-- 쓰레기통 아이콘 -->
+  </div>
+
+  <!-- 입력창 + 전송 버튼 -->
+  <div class="input-container"> <!-- 사용자 메시지 입력 영역 -->
+    <textarea id="input" placeholder="🤖 힘든 일이 있었나요?"></textarea> <!-- 입력 텍스트 영역 -->
+    <button class="send-btn" id="sendBtn">전송</button> <!-- 메시지 전송 버튼 -->
+  </div>
+</div>
+
+<!-- script -->
+<script type="module" src="/src/main.js"></script> <!-- 메인 JavaScript 모듈 연결 -->
+
+</body>
+</html> <!-- HTML 문서 종료 -->
