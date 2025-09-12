@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8"> <!-- 문자 인코딩을 UTF-8로 설정 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 웹 설정 -->
+  
   <title>TossTalk</title> <!-- 브라우저 탭에 표시될 제목 -->
+  
   <!-- style -->
   <link rel="stylesheet" href="/src/style.css"> <!-- 외부 CSS 파일 연결 -->
+
 </head>
 <body> <!-- 문서 본문 시작 -->
 
@@ -22,13 +25,21 @@
 
 <!-- 메인 화면 -->
 <div id="mainScreen" style="display:none;"> <!-- 로그인 후 표시될 메인 화면, 초기에는 숨김 -->
-  <header>💬 Toss-Talk 🗑️</header> <!-- 헤더 영역, 앱 이름과 이모지 포함 -->
-  
+
+  <!-- 헤더  --> 
+  <header>💬 Toss-Talk 🗑️</header>
+
+  <!-- 네비게이션 버튼 -->  
+  <nav class="nav">
+    <button id="homeBtn">🤖 상담하기</button>
+    <button id="gardenBtn">🌳 정원 가꾸기</button>
+  </nav>
+
   <!-- 유저 정보 -->
-  <div class="user-info"> <!-- 사용자 정보 영역 -->
-    <img id="userPhoto" style="display:none;"> <!-- 사용자 프로필 사진, 초기에는 숨김 -->
-    <span id="userName" style="display:none;"></span> <!-- 사용자 이름, 초기에는 숨김 -->
-    <button id="logoutBtn" style="display:none;">로그아웃</button> <!-- 로그아웃 버튼, 초기에는 숨김 -->
+  <div class="user-info"> 
+    <img id="userPhoto" src="" alt="profile">
+    <span id="userName"></span>
+    <button id="logoutBtn">로그아웃</button> 
   </div>
 
   <!-- 상담 전 기분 모달 -->
@@ -72,10 +83,15 @@
 
   <!-- 입력창 + 전송 버튼 -->
   <div class="input-container"> <!-- 사용자 메시지 입력 영역 -->
-    <textarea id="input" placeholder="🤖 힘든 일이 있었나요?"></textarea> <!-- 입력 텍스트 영역 -->
+    <textarea id="input" placeholder="🤖 뭐든 말해도 돼요 - !"></textarea> <!-- 입력 텍스트 영역 -->
     <button class="send-btn" id="sendBtn">전송</button> <!-- 메시지 전송 버튼 -->
   </div>
 </div>
+
+<div id="gardenScreen" style="display:none;">
+  <!-- 정원 가꾸기 기능 UI -->
+</div>
+
 
 <!-- script -->
 <script type="module" src="/src/main.js"></script> <!-- 메인 JavaScript 모듈 연결 -->

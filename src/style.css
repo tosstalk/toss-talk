@@ -1,10 +1,21 @@
 /* ----------------- 공통 ----------------- */
-body {
-  font-family: 'Apple SD Gothic Neo', sans-serif; /* 전체 글꼴 설정 */
-  margin: 0; /* 브라우저 기본 여백 제거 */
-  padding: 0; /* 브라우저 기본 패딩 제거 */
-  background-color: #f4f4f9; /* 전체 배경색 지정 */
-}
+
+/* 전체 요소에 box-sizing 속성 적용 */
+ *,
+ *::before,
+ *::after {
+ box-sizing: border-box;
+ }
+ 
+ /* 기본 스타일 */
+ html, body { 
+ margin:0; /* 기본 마진 제거 */
+ padding:0; /* 기본 패딩 제거 */
+ font-family:'Noto Sans KR',sans-serif; /* 폰트 설정 */ 
+ background:#fff; /* 배경색 설정 */
+ color:#222; /* 텍스트 색상 설정 */
+ }
+
 
 /* ----------------- 로그인 화면 ----------------- */
 .login-wrapper { 
@@ -12,7 +23,11 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #d0f0c0, #a8edea, #fff9b0); /* 연한 그린-블루-옐로우 */
+  background: linear-gradient(
+    135deg,
+    #d0f0c0, 
+    #a8edea, 
+    #fff9b0); /* 연한 그린-블루-옐로우 */
 }
 
 .login-box { 
@@ -55,55 +70,113 @@ body {
 
 /* ----------------- 메인 화면 ----------------- */
 #mainScreen {
+  padding-top: 80px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #d0f0c0, #a8edea, #fff9b0); /* 로그인과 통일 */
-  padding: 20px 0;
+  background: linear-gradient(
+    135deg,
+    #d0f0c0 0%,
+    #a8edea 40%,
+    #fddde6 100%
+  ); 
+  padding: 80px;
 }
 
-header {
-  text-align: center;
-  padding: 20px;
-  font-size: 2.1rem;
-  font-weight: bold;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4); /* 배경과 자연스러운 반투명 */
-  color: #fff; /* 텍스트도 조금 밝게 */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* 가독성 보정 */
-}
-.user-info {
-    position: absolute;
-    top: 2px;
-    right: 5px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+/* 메인 화면 */
+
+/*===== 헤더 =====*/
+ header { 
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ z-index: 50p;
+ background: linear-gradient(
+  135deg,
+  #e0f7d8 0%,   /* 연두 + 화이트 톤 */
+  #c9f0eb 50%,  /* 민트 + 화이트 톤 */
+  #fffce0 100%  /* 옐로 + 화이트 톤 */
+);
+ color: #444;
+ text-align:center; /* 헤더 텍스트 가운데 정렬 */
+ padding:20px; /* 내부 여백 */
+ font-size:1.8rem; /* 글꼴 크기 */
+ font-weight:bold; /* 글꼴 두께 */
+ border-bottom: 2px solid rgba(0,0,0,0.1); /* 흐릿하게 배경과 자연스럽게 */
+ }
+ 
+ /* =========== 네비게이션 버튼 =========== */
+ nav.nav { 
+  position: relative;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 15px 0;
+ }
+ 
+ nav.nav button { 
+ background: #f9f9f9;
+ border-radius:12px; /* 버튼 모서리 둥글게 */
+ padding:10px 20px; /* 버튼 내부 여백 */
+ margin:0 20px; /* 버튼 간 간격 */
+ font-size:1.1rem; /* 버튼 텍스트 크기 */
+ color: #444;
+ font-weight: 600;
+ box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 살짝 그림자 */
+ transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+ }
+ nav.nav button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  background: #fff;
 }
 
-.user-info img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+nav.nav button:active {
+  background: #f0f0f0;
 }
 
-.user-info span {
-    font-weight: 600;
-    font-size: 0.89rem;
-    color: #333;
-}
+/* ========= 유저 정보 및 로그아웃 버튼 ========= */
+ .user-info { 
+ position:absolute; /* 절대 위치 지정 */
+ top:16px; /* 상단에서 16px 떨어지게 설정 */
+ right:24px; /* 우측에서 24px 떨어지게 설정 */
+ display:flex; /* 플렉스 박스를 사용하여 정렬 */
+ align-items:center; /* 아이콘과 텍스트를 수직 중앙에 정렬 */
+ gap:12px; /* 아이콘과 텍스트 간의 간격 */
+ }
+ 
+ .user-info img { 
+ width:40px; /* 프로필 이미지의 너비 */
+ height:40px; /* 프로필 이미지의 높이 */
+ border-radius:50%; /* 프로필 이미지를 원형으로 */
+ object-fit:cover; /* 이미지 비율을 맞추고 자르기 */
+ }
+ 
+ .user-info span { 
+ font-weight:600; /* 텍스트 두께 */
+ font-size:1rem; /* 텍스트 크기 */
+ }
+ 
+ .user-info button { 
+ padding:6px 14px; /* 버튼 내부 여백 */
+ border-radius:10px; /* 버튼 모서리 둥글게 */
+ background:linear-gradient(
+  135deg, 
+  #a8edea,
+  #89d4a3
+  ); 
+ color:#fff; /* 글자 색상 흰색 */
+ font-weight:600; /* 버튼 글씨 두께 */
+ }
 
-.user-info button {
-    padding: 6px 14px;
-    border-radius: 10px;
-    background: #08d2e9; /* 포인트 그린 */
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: background 0.3s ease;
-}
-
+/* 마우스 오버: 부드러운 파스텔 핑크 그라디언트 */
 .user-info button:hover {
-    background: #0adfcd;
+  background: linear-gradient(135deg, #fcb1b1, #f78ca0);
+}
+
+/* 클릭(활성) 시 좀 더 진한 핑크 */
+.user-info button:active {
+  background: linear-gradient(135deg, #f78ca0, #f9748f);
 }
 
 button {
@@ -135,7 +208,7 @@ textarea {
   overflow-y: auto;
   background-color: #ffffffee;
   box-shadow: 2px 4px 15px rgba(0,0,0,0.1);
-  margin: 20px auto;
+  margin: 0px auto;
 }
 
 /* == 고민 해소 버튼 == */
@@ -146,21 +219,32 @@ textarea {
   font-size:14px; 
   cursor:pointer; 
   margin-top:15px; 
-  text-align:center; 
+  text-align: left;
   display:block; 
+  width: 100%;
+  margin: 10px auto 0 auto;
   transition: color 0.2s; 
+  max-width: 700px;
 }
 
 #resolve-btn:hover { 
   color:#666; 
 }
 
+#chat {
+  display:flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 /* --------- 메시지 ------ */
 .message { 
+  display: inline-block;
   margin:8px 0; 
   padding:8px 12px; 
   border-radius:15px; 
   max-width:75%; 
+  min-width: 50px;
   word-wrap:break-word; 
   font-size:15px; 
   line-height:1.4; 
@@ -171,12 +255,14 @@ textarea {
   background-color:#cce4ff; 
   text-align:right; 
   margin-left:auto; 
+  display: inline-block;
 }
 
 .message.bot { 
   background-color:#d4ffd4; 
   text-align:left; 
   margin-right:auto; 
+  display: inline-block;
 }
 
 /* ----------------- 입력창 ----------------- */
@@ -288,7 +374,7 @@ button.send-btn:active {
 
 #trash-container { 
   text-align:center; 
-  margin:15px 0; 
+  margin: 5px 0 30px 0;
 }
 
 #trash { 

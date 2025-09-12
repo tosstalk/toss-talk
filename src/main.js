@@ -197,3 +197,24 @@ trash.addEventListener("drop", e => {
   const randomMsg = messages[Math.floor(Math.random()*messages.length)];
   alert(randomMsg);
 });
+
+//-----  네비게이션 버튼 ------//
+
+const homeBtn = document.getElementById("homeBtn");
+const gardenBtn = document.getElementById("gardenBtn");
+
+homeBtn.addEventListener("click", () => {
+  // 메인 화면으로 이동
+  mainScreen.style.display = "block";
+  gardenScreen.style.display = "none"; // 정원 화면 숨기기
+});
+
+gardenBtn.addEventListener("click", () => {
+  // 정원 가꾸기 화면으로 이동
+  mainScreen.style.display = "none";
+  gardenScreen.style.display = "block";
+});
+
+// 사용자 정보 함수
+document.getElementById("userPhoto").src = user.photoURL;
+document.getElementById("userName").textContent = user.displayName;
