@@ -26,17 +26,22 @@
 }
 
 /* ----------------- 공통 ----------------- */
-
-/* 공통 버튼 클래스 */
-.btn {
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* 버튼 공통 스타일 적용 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #fff;
+  color: #222;
+}
+
+/* 공통 버튼 클래스 */
+.btn,
 .google-btn,
 .user-info button,
 .send-btn,
@@ -48,20 +53,16 @@
   transition: all 0.2s;
 }
 
-/* 전체 요소에 box-sizing 적용 */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* 기본 스타일 */
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-  background: #fff;
-  color: #222;
+/* === disabled 상태 공통 === */
+button:disabled,
+.garden-btn:disabled {
+  background: #c0c0c0 !important;   /* 회색 배경 */
+  border: 2px solid #a0a0a0 !important;
+  color: #eee !important;           /* 글씨도 연하게 */
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  transform: none !important;
+  opacity: 0.7;
 }
 
 /* ----------------- 로그인 화면 ----------------- */
@@ -88,7 +89,6 @@ html, body {
   margin-bottom: 25px;
 }
 
-/* 구글 로그인 버튼 */
 .google-btn {
   display: flex;
   align-items: center;
@@ -116,11 +116,7 @@ html, body {
 #gardenScreen {
   padding-top: calc(var(--header-height) + var(--nav-height));
   min-height: 100vh;
-  background: linear-gradient(
-    135deg, 
-    #d0f0c0 0%, 
-    #a8edea 40%,
-    #fddde6 100%);
+  background: linear-gradient(135deg, #d0f0c0 0%, #a8edea 40%, #fddde6 100%);
   padding-left: 80px;
   padding-right: 80px;
 }
@@ -287,13 +283,11 @@ textarea {
 
 .message.user {
   background-color: #cce4ff;
-  text-align: right;
   margin-left: auto;
 }
 
 .message.bot {
   background-color: #d4ffd4;
-  text-align: left;
   margin-right: auto;
 }
 
@@ -381,25 +375,23 @@ button.send-btn:active {
   position: absolute;
   width: 200px;
   height: 80px;
-  background: linear-gradient(135deg, #a0e7e5, #b4f8c8); /* 파스텔 블루→그린 */
+  background: linear-gradient(135deg, #a0e7e5, #b4f8c8);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;  /* 이모지 강조 */
+  font-size: 24px;
   user-select: none;
   z-index: 20;
   transition: transform 0.3s, background 0.3s;
 }
 
-/* 종이가 구겨지는 효과 */
 .paper.crumple {
   transform: rotate(20deg) scale(0.3);
   opacity: 0;
 }
 
-/* hover하면 살짝 색 변하게 */
 .paper:hover {
   background: linear-gradient(135deg, #96fbc4, #f9f586);
 }
@@ -426,7 +418,6 @@ button.send-btn:active {
 }
 
 /*--------------- 정원 가꾸기 --------------------*/
-
 #gardenIntroModal .modal-content p {
   font-size: 1.2rem;
   margin-bottom: 20px;
@@ -458,9 +449,7 @@ button.send-btn:active {
   max-width: 700px;
   height: 50vh;
   overflow-y: auto;
-
   background: #fff8e7;
-
   background-size: cover;
   box-shadow: 2px 4px 15px rgba(0,0,0,0.1);
   margin: 20px auto 0 auto;
@@ -482,11 +471,7 @@ button.send-btn:active {
   font-size: 16px;
   border: 2px solid #8c6239;
   border-radius: 12px;
-  background: linear-gradient(
-    135deg, 
-    #b28c5f, 
-    #8c6239
-    );
+  background: linear-gradient(135deg, #b28c5f, #8c6239);
   color: #fff;
   cursor: pointer;
   box-shadow: 0 5px 10px rgba(0,0,0,0.3);
@@ -494,10 +479,7 @@ button.send-btn:active {
 }
 
 #plantButton:hover:enabled {
-  background: linear-gradient(
-    135deg, 
-    #c49b6c, 
-    #9c7045);
+  background: linear-gradient(135deg, #c49b6c, #9c7045);
   box-shadow: 0 8px 15px rgba(0,0,0,0.4);
   transform: translateY(-2px);
 }
@@ -513,11 +495,7 @@ button.send-btn:active {
   font-size: 16px;
   border: 2px solid #1e88e5;
   border-radius: 12px;
-  background: linear-gradient(
-    135deg, 
-    #4da0f7, 
-    #1e88e5
-    );
+  background: linear-gradient(135deg, #4da0f7, #1e88e5);
   color: #fff;
   cursor: pointer;
   box-shadow: 0 5px 12px rgba(0,0,0,0.3);
@@ -525,11 +503,7 @@ button.send-btn:active {
 }
 
 #waterButton:hover:enabled {
-  background: linear-gradient(
-    135deg, 
-    #6bb7f9, 
-    #3b9df0
-    );
+  background: linear-gradient(135deg, #6bb7f9, #3b9df0);
   box-shadow: 0 8px 15px rgba(0,0,0,0.4);
   transform: translateY(-2px);
 }
@@ -537,16 +511,6 @@ button.send-btn:active {
 #waterButton:active:enabled {
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transform: translateY(1px);
-}
-
-/* 비활성화 상태 */
-.garden-btn:disabled {
-  background: #c0c0c0;
-  border: 2px solid #a0a0a0;
-  border-color: #999;
-  cursor: default;
-  box-shadow: none;
-  transform: none;
 }
 
 .plant-status {
@@ -566,7 +530,6 @@ button.send-btn:active {
   transition: transform 0.3s, bottom 0.3s;
 }
 
-/* 정원에 곤충 생성 */
 .insect {
   position: absolute;
   font-size: 24px;
@@ -589,9 +552,8 @@ button.send-btn:active {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* 상태 텍스트 안 로봇 아이콘 */
 #plantStatus::before {
-  content: "🐞"; /* 무당벌레가 귀여워 */
+  content: "🐞";
 }
 
 #plantStatus::after {
