@@ -1,100 +1,117 @@
-<!DOCTYPE html> <!-- HTML5 문서임을 선언 -->
-<html lang="ko"> <!-- 문서의 언어를 한국어로 설정 -->
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8"> <!-- 문자 인코딩을 UTF-8로 설정 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 웹 설정 -->
-  
-  <title>TossTalk</title> <!-- 브라우저 탭에 표시될 제목 -->
-  
-  <!-- style -->
-  <link rel="stylesheet" href="/src/style.css"> <!-- 외부 CSS 파일 연결 -->
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TossTalk</title>
+  <link rel="stylesheet" href="/src/style.css">
 </head>
-<body> <!-- 문서 본문 시작 -->
 
-<!-- 로그인 화면 -->
-<div id="loginScreen" class="login-wrapper"> <!-- 로그인 화면 전체 컨테이너 -->
-  <div class="login-box"> <!-- 로그인 박스 컨테이너 -->
-    <h1>TossTalk</h1> <!-- 서비스 제목 -->
-    <p class="subtitle">나쁜 감정을 비워내요</p> <!-- 로그인 안내 문구 -->
-    <button id="googleLoginBtn" class="google-btn"> <!-- 구글 로그인 버튼 -->
-      Google 로그인 <!-- 버튼 텍스트 -->
-    </button>
-  </div>
-</div>
+<body>
 
-<!-- 메인 화면 -->
-<div id="mainScreen" style="display:none;"> <!-- 로그인 후 표시될 메인 화면, 초기에는 숨김 -->
+<!-- ================= 공통 헤더 ================= -->
+<header>💬 Toss-Talk 🗑️</header>
 
-  <!-- 헤더  --> 
-  <header>💬 Toss-Talk 🗑️</header>
+<!-- ================= 공통 네비게이션 ================= -->
+<nav class="nav">
+  <button id="homeBtn">🤖 상담하기</button>
+  <button id="gardenBtn">🍀 정원 가꾸기</button>
+</nav>
 
-  <!-- 네비게이션 버튼 -->  
-  <nav class="nav">
-    <button id="homeBtn">🤖 상담하기</button>
-    <button id="gardenBtn">🌳 정원 가꾸기</button>
-  </nav>
-
-  <!-- 유저 정보 -->
+<!-- 유저 정보 -->
   <div class="user-info"> 
     <img id="userPhoto" src="" alt="profile">
     <span id="userName"></span>
     <button id="logoutBtn">로그아웃</button> 
   </div>
 
+<!-- ================= 정원 가꾸기 화면 ================= -->
+<div id="gardenScreen" class="garden-page" style="display:none;">
+
+  <!-- 정원 배경 박스 : 네비게이션 바로 밑에 위치 -->
+  <div id="gardenContainer" class="garden-box">
+    <!-- 꽃/씨앗 이모지가 JS로 추가될 영역 -->
+  </div>
+
+  <!-- 정원 가꾸기 진입 안내 모달 -->
+<div id="gardenIntroModal" class="modal">
+  <div class="modal-content">
+    <p>🌳 꽃을 심어 정원을 만들어봐요! 🌳</p>
+    <button id="startGardenBtn" class="garden-btn">정원 만들기</button>
+  </div>
+</div>
+
+  <!-- 하단 중앙 버튼 -->
+  <div class="garden-controls">
+    <button id="plantButton" class="garden-btn">꽃 심기 🪴</button>
+    <button id="waterButton" class="garden-btn" disabled>물 주기 💧</button>
+  </div>
+  <p id="plantStatus">
+    <span class="status-text">꽃을 심어 정원을 만들어봐요 ! 🌳</span>
+</p>
+
+</div>
+
+  <!-- ================= 로그인 화면 ================= -->
+<div id="loginScreen" class="login-wrapper">
+  <div class="login-box">
+    <h1>TossTalk</h1>
+    <p class="subtitle">나쁜 감정을 비워내요</p>
+    <button id="googleLoginBtn" class="google-btn">Google 로그인</button>
+  </div>
+</div>
+
+<!-- ================= 상담 메인 화면 ================= -->
+<div id="mainScreen" style="display:none;">
+
   <!-- 상담 전 기분 모달 -->
-  <div id="moodModal" class="modal"> <!-- 사용자가 상담 시작 전에 기분을 선택하는 모달 -->
-    <div class="modal-content"> <!-- 모달 내용 영역 -->
-      <h3>현재 기분을 선택해주세요</h3> <!-- 안내 문구 -->
-      <div class="mood-options"> <!-- 기분 선택 버튼 그룹 -->
-        <button class="mood-btn">🤬</button> <!-- 화난 기분 -->
-        <button class="mood-btn">😡</button> <!-- 화난 기분 -->
-        <button class="mood-btn">😠</button> <!-- 화난 기분 -->
-        <button class="mood-btn">🥲</button> <!-- 슬프지만 참는 기분 -->
-        <button class="mood-btn">😢</button> <!-- 슬픈 기분 -->
-        <button class="mood-btn">😭</button> <!-- 많이 슬픈 기분 -->
+  <div id="moodModal" class="modal">
+    <div class="modal-content">
+      <h3>현재 기분을 선택해주세요</h3>
+      <div class="mood-options">
+        <button class="mood-btn">🤬</button>
+        <button class="mood-btn">😡</button>
+        <button class="mood-btn">😠</button>
+        <button class="mood-btn">🥲</button>
+        <button class="mood-btn">😢</button>
+        <button class="mood-btn">😭</button>
       </div>
     </div>
   </div>
 
-  <!-- 상담 후 해소된 기분 모달 -->
-  <div id="resolvedMoodModal" class="modal"> <!-- 상담 후 해소된 기분을 선택하는 모달 -->
-    <div class="modal-content"> <!-- 모달 내용 영역 -->
-      <h3>해소된 기분을 선택해주세요</h3> <!-- 안내 문구 -->
-      <div class="mood-options"> <!-- 기분 선택 버튼 그룹 -->
-        <button class="resolved-btn" data-emoji="☺️">☺️</button> <!-- 긍정적인 기분 -->
-        <button class="resolved-btn" data-emoji="😌">😌</button> <!-- 편안한 기분 -->
-        <button class="resolved-btn" data-emoji="🙃">🙃</button> <!-- 복잡하지만 해소된 기분 -->
-        <button class="resolved-btn" data-emoji="❌">❌</button> <!-- 해소되지 않은 기분 -->
+  <!-- 상담 후 해소 기분 모달 -->
+  <div id="resolvedMoodModal" class="modal">
+    <div class="modal-content">
+      <h3>해소된 기분을 선택해주세요</h3>
+      <div class="mood-options">
+        <button class="resolved-btn" data-emoji="☺️">☺️</button>
+        <button class="resolved-btn" data-emoji="😌">😌</button>
+        <button class="resolved-btn" data-emoji="🙃">🙃</button>
+        <button class="resolved-btn" data-emoji="❌">❌</button>
       </div>
     </div>
   </div>
 
   <!-- 채팅창 -->
-  <div id="chat"></div> <!-- 상담 메시지와 봇/사용자 대화를 표시하는 영역 -->
+  <div id="chat"></div>
 
   <!-- 고민 해소 버튼 -->
-  <button id="resolve-btn">고민이 해소되었습니까?</button> <!-- 사용자가 상담 후 기분 해소 여부 선택 -->
+  <button id="resolve-btn">고민이 해소되었습니까?</button>
 
   <!-- 쓰레기통 -->
-  <div id="trash-container"> <!-- 채팅 삭제 기능용 컨테이너 -->
-    <span id="trash">🗑️</span> <!-- 쓰레기통 아이콘 -->
+  <div id="trash-container">
+    <span id="trash">🗑️</span>
   </div>
 
   <!-- 입력창 + 전송 버튼 -->
-  <div class="input-container"> <!-- 사용자 메시지 입력 영역 -->
-    <textarea id="input" placeholder="🤖 뭐든 말해도 돼요 - !"></textarea> <!-- 입력 텍스트 영역 -->
-    <button class="send-btn" id="sendBtn">전송</button> <!-- 메시지 전송 버튼 -->
+  <div class="input-container">
+    <textarea id="input" placeholder="💬 뭐든 말해도 돼요 ! !"></textarea>
+    <button class="send-btn" id="sendBtn">전송</button>
   </div>
 </div>
 
-<div id="gardenScreen" style="display:none;">
-  <!-- 정원 가꾸기 기능 UI -->
-</div>
-
-
-<!-- script -->
-<script type="module" src="/src/main.js"></script> <!-- 메인 JavaScript 모듈 연결 -->
+<!-- ================= JS 연결 ================= -->
+<script type="module" src="/src/main.js"></script>
 
 </body>
-</html> <!-- HTML 문서 종료 -->
+</html>

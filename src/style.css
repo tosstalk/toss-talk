@@ -1,36 +1,79 @@
+/* ----------------- 모바일 대응 ----------------- */
+@media (max-width: 768px) {
+  #mainScreen, #gardenScreen {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+  .garden-btn, .send-btn { font-size: 14px; }
+  #chat { height: 40vh; min-height: 200px; }
+  .send-btn { height: 40px; padding: 0 20px; }
+}
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* ----------------- 변수 ----------------- */
+:root {
+  --header-height: 80px;
+  --nav-height: 60px;
+}
+
 /* ----------------- 공통 ----------------- */
 
-/* 전체 요소에 box-sizing 속성 적용 */
- *,
- *::before,
- *::after {
- box-sizing: border-box;
- }
- 
- /* 기본 스타일 */
- html, body { 
- margin:0; /* 기본 마진 제거 */
- padding:0; /* 기본 패딩 제거 */
- font-family:'Noto Sans KR',sans-serif; /* 폰트 설정 */ 
- background:#fff; /* 배경색 설정 */
- color:#222; /* 텍스트 색상 설정 */
- }
+/* 공통 버튼 클래스 */
+.btn {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
 
+/* 버튼 공통 스타일 적용 */
+.google-btn,
+.user-info button,
+.send-btn,
+.garden-btn {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+/* 전체 요소에 box-sizing 적용 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 기본 스타일 */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #fff;
+  color: #222;
+}
 
 /* ----------------- 로그인 화면 ----------------- */
-.login-wrapper { 
+.login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    #d0f0c0, 
-    #a8edea, 
-    #fff9b0); /* 연한 그린-블루-옐로우 */
+  background: linear-gradient(135deg, #d0f0c0, #a8edea, #fff9b0);
 }
 
-.login-box { 
+.login-box {
   background: white;
   padding: 50px 40px;
   border-radius: 16px;
@@ -39,93 +82,93 @@
   text-align: center;
 }
 
-.google-btn { 
-  display:flex; 
-  align-items:center; 
-  justify-content:center; 
-  gap:12px; 
-  padding:10px 5px; 
-  width:100%; 
-  border:1px solid #ddd; 
-  border-radius:15px; 
-  color: white;
-  background:#2d8fe0; 
-  cursor:pointer; 
+.subtitle {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 25px;
 }
 
-.subtitle {
-    color: #666;
-    font-size: 15px;
-    margin-bottom: 25px;
+/* 구글 로그인 버튼 */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 5px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  color: white;
+  background: #2d8fe0;
 }
 
 .google-btn:hover {
-  transform: translateY(-2px); /* 살짝 위로 이동 */
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* 그림자 강조 */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 .google-btn span {
-  margin-right: 12px; /* 오른쪽 여백 */
+  margin-right: 12px;
 }
 
-/* ----------------- 메인 화면 ----------------- */
-#mainScreen {
-  padding-top: 80px;
+/* ----------------- 화면 컨테이너 ----------------- */
+#mainScreen,
+#gardenScreen {
+  padding-top: calc(var(--header-height) + var(--nav-height));
   min-height: 100vh;
   background: linear-gradient(
-    135deg,
-    #d0f0c0 0%,
+    135deg, 
+    #d0f0c0 0%, 
     #a8edea 40%,
-    #fddde6 100%
-  ); 
-  padding: 80px;
+    #fddde6 100%);
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
-/* 메인 화면 */
+/* ===== 헤더 ===== */
+header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background: linear-gradient(135deg, #e0f7d8 0%, #ffd6e8 25%, #d6e8ff 50%, #c9f0eb 75%, #fffce0 100%);
+  color: #444;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(0,0,0,0.1);
+}
 
-/*===== 헤더 =====*/
- header { 
- position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- z-index: 50p;
- background: linear-gradient(
-  135deg,
-  #e0f7d8 0%,   /* 연두 + 화이트 톤 */
-  #c9f0eb 50%,  /* 민트 + 화이트 톤 */
-  #fffce0 100%  /* 옐로 + 화이트 톤 */
-);
- color: #444;
- text-align:center; /* 헤더 텍스트 가운데 정렬 */
- padding:20px; /* 내부 여백 */
- font-size:1.8rem; /* 글꼴 크기 */
- font-weight:bold; /* 글꼴 두께 */
- border-bottom: 2px solid rgba(0,0,0,0.1); /* 흐릿하게 배경과 자연스럽게 */
- }
- 
- /* =========== 네비게이션 버튼 =========== */
- nav.nav { 
-  position: relative;
+/* =========== 네비게이션 버튼 =========== */
+nav.nav {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
   z-index: 60;
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 30px;
+  padding: 10px 0;
   margin: 15px 0;
- }
- 
- nav.nav button { 
- background: #f9f9f9;
- border-radius:12px; /* 버튼 모서리 둥글게 */
- padding:10px 20px; /* 버튼 내부 여백 */
- margin:0 20px; /* 버튼 간 간격 */
- font-size:1.1rem; /* 버튼 텍스트 크기 */
- color: #444;
- font-weight: 600;
- box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 살짝 그림자 */
- transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
- }
- nav.nav button:hover {
+}
+
+nav.nav button {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 10px 20px;
+  margin: 0 20px;
+  font-size: 1.1rem;
+  color: #444;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+nav.nav button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
   background: #fff;
@@ -136,69 +179,278 @@ nav.nav button:active {
 }
 
 /* ========= 유저 정보 및 로그아웃 버튼 ========= */
- .user-info { 
- position:absolute; /* 절대 위치 지정 */
- top:16px; /* 상단에서 16px 떨어지게 설정 */
- right:24px; /* 우측에서 24px 떨어지게 설정 */
- display:flex; /* 플렉스 박스를 사용하여 정렬 */
- align-items:center; /* 아이콘과 텍스트를 수직 중앙에 정렬 */
- gap:12px; /* 아이콘과 텍스트 간의 간격 */
- }
- 
- .user-info img { 
- width:40px; /* 프로필 이미지의 너비 */
- height:40px; /* 프로필 이미지의 높이 */
- border-radius:50%; /* 프로필 이미지를 원형으로 */
- object-fit:cover; /* 이미지 비율을 맞추고 자르기 */
- }
- 
- .user-info span { 
- font-weight:600; /* 텍스트 두께 */
- font-size:1rem; /* 텍스트 크기 */
- }
- 
- .user-info button { 
- padding:6px 14px; /* 버튼 내부 여백 */
- border-radius:10px; /* 버튼 모서리 둥글게 */
- background:linear-gradient(
-  135deg, 
-  #a8edea,
-  #89d4a3
-  ); 
- color:#fff; /* 글자 색상 흰색 */
- font-weight:600; /* 버튼 글씨 두께 */
- }
+.user-info {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 100;
+}
 
-/* 마우스 오버: 부드러운 파스텔 핑크 그라디언트 */
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info span {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.user-info button {
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #a8edea, #89d4a3);
+  color: #fff;
+  font-weight: 600;
+}
+
 .user-info button:hover {
   background: linear-gradient(135deg, #fcb1b1, #f78ca0);
 }
 
-/* 클릭(활성) 시 좀 더 진한 핑크 */
 .user-info button:active {
   background: linear-gradient(135deg, #f78ca0, #f9748f);
 }
 
+/* --------- 버튼, textarea 공통 --------- */
 button {
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
-  border: none; /* 버튼 테두리 제거 */
-  border-radius: 8px; /* 모서리 둥글게 */
-  padding: 8px 12px; /* 안쪽 여백 */
-  font-size: 16px; /* 글자 크기 */
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 16px;
 }
 
 textarea {
-  border-radius: 8px; /* 모서리 둥글게 */
-  border: 1px solid #ccc; /* 테두리 색 지정 */
-  padding: 8px; /* 안쪽 여백 */
-  width: 100%; /* 가로 전체 */
-  resize: none; /* 사용자가 크기 조절 불가 */
-  font-size: 16px; /* 글자 크기 */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  width: 100%;
+  resize: none;
+  font-size: 16px;
 }
 
-/* 채팅창 */
+/* ----------------- 채팅창 ----------------- */
 #chat {
-  position: relative; /* 버튼 위치 기준 */
+  position: relative;
+  border-radius: 15px;
+  border: 2px solid #c0c0c0;
+  padding: 15px;
+  width: 100%;
+  max-width: 700px;
+  height: 50vh;
+  min-height: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background-color: #ffffffee;
+  box-shadow: 2px 4px 15px rgba(0,0,0,0.1);
+  margin: 20px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#resolve-btn {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  max-width: 700px;
+  margin: 10px auto 0;
+  transition: color 0.2s;
+}
+
+#resolve-btn:hover {
+  color: #666;
+}
+
+.message {
+  display: inline-block;
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 75%;
+  min-width: 50px;
+  word-wrap: break-word;
+  font-size: 15px;
+  line-height: 1.4;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+.message.user {
+  background-color: #cce4ff;
+  text-align: right;
+  margin-left: auto;
+}
+
+.message.bot {
+  background-color: #d4ffd4;
+  text-align: left;
+  margin-right: auto;
+}
+
+/* ----------------- 입력창 ----------------- */
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 700px;
+}
+
+#input {
+  flex: 1;
+  min-width: 200px;
+  height: 50px;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+}
+
+#input:focus {
+  border-color: #6fa8ff;
+  box-shadow: inset 1px 1px 8px rgba(0,0,0,0.2);
+}
+
+button.send-btn {
+  padding: 0 25px;
+  height: 50px;
+  background: linear-gradient(135deg, #6fa8ff, #3a8dde);
+  border-radius: 25px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(58,141,222,0.4);
+}
+
+button.send-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(58,141,222,0.6);
+}
+
+button.send-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(58,141,222,0.4);
+}
+
+/* ----------------- 모달 ----------------- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 400px;
+}
+
+.mood-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ----------------- 포스트잇 ----------------- */
+.paper {
+  position: absolute;
+  width: 200px;
+  height: 80px;
+  background: linear-gradient(135deg, #a0e7e5, #b4f8c8); /* 파스텔 블루→그린 */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;  /* 이모지 강조 */
+  user-select: none;
+  z-index: 20;
+  transition: transform 0.3s, background 0.3s;
+}
+
+/* 종이가 구겨지는 효과 */
+.paper.crumple {
+  transform: rotate(20deg) scale(0.3);
+  opacity: 0;
+}
+
+/* hover하면 살짝 색 변하게 */
+.paper:hover {
+  background: linear-gradient(135deg, #96fbc4, #f9f586);
+}
+
+/* ----------------- 쓰레기통 ----------------- */
+#trash-container {
+  text-align: center;
+  margin: 5px 0 30px 0;
+}
+
+#trash {
+  z-index: 30;
+  font-size: 30px;
+  padding: 15px 30px;
+  border: 2px dashed #888;
+  border-radius: 15px;
+  background-color: #ffffffcc;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#trash.drag-over {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+/*--------------- 정원 가꾸기 --------------------*/
+
+#gardenIntroModal .modal-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.garden-page {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.garden-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.garden-box {
+  position: relative;
   border-radius: 15px;
   border: 2px solid #c0c0c0;
   padding: 15px;
@@ -206,187 +458,152 @@ textarea {
   max-width: 700px;
   height: 50vh;
   overflow-y: auto;
-  background-color: #ffffffee;
+
+  background: #fff8e7;
+
+  background-size: cover;
   box-shadow: 2px 4px 15px rgba(0,0,0,0.1);
-  margin: 0px auto;
-}
-
-/* == 고민 해소 버튼 == */
-#resolve-btn { 
-  background:none; 
-  border:none; 
-  color:#999; 
-  font-size:14px; 
-  cursor:pointer; 
-  margin-top:15px; 
-  text-align: left;
-  display:block; 
-  width: 100%;
-  margin: 10px auto 0 auto;
-  transition: color 0.2s; 
-  max-width: 700px;
-}
-
-#resolve-btn:hover { 
-  color:#666; 
-}
-
-#chat {
-  display:flex;
+  margin: 20px auto 0 auto;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-/* --------- 메시지 ------ */
-.message { 
+.garden-controls {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* 꽃 심기 버튼 */
+#plantButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #8c6239;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg, 
+    #b28c5f, 
+    #8c6239
+    );
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+}
+
+#plantButton:hover:enabled {
+  background: linear-gradient(
+    135deg, 
+    #c49b6c, 
+    #9c7045);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+}
+
+#plantButton:active:enabled {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(1px);
+}
+
+/* 물주기 버튼 */
+#waterButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #1e88e5;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg, 
+    #4da0f7, 
+    #1e88e5
+    );
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+}
+
+#waterButton:hover:enabled {
+  background: linear-gradient(
+    135deg, 
+    #6bb7f9, 
+    #3b9df0
+    );
+  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+}
+
+#waterButton:active:enabled {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(1px);
+}
+
+/* 비활성화 상태 */
+.garden-btn:disabled {
+  background: #c0c0c0;
+  border: 2px solid #a0a0a0;
+  border-color: #999;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
+
+.plant-status {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.flower {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  user-select: none;
+  transition: transform 0.3s, bottom 0.3s;
+}
+
+/* 정원에 곤충 생성 */
+.insect {
+  position: absolute;
+  font-size: 24px;
+  pointer-events: none;
+  user-select: none;
+  top: 0;
+}
+
+/* 정원 상태 박스 */
+#plantStatus {
   display: inline-block;
-  margin:8px 0; 
-  padding:8px 12px; 
-  border-radius:15px; 
-  max-width:75%; 
-  min-width: 50px;
-  word-wrap:break-word; 
-  font-size:15px; 
-  line-height:1.4; 
-  box-shadow:1px 1px 5px rgba(0,0,0,0.1); 
+  padding: 10px 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  font-size: 16px;
+  color: #333;
+  margin-top: 30px;
+  border: 2px dashed #888;
+  border-radius: 12px;
+  background-color: #ffffffcc;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.message.user { 
-  background-color:#cce4ff; 
-  text-align:right; 
-  margin-left:auto; 
-  display: inline-block;
+/* 상태 텍스트 안 로봇 아이콘 */
+#plantStatus::before {
+  content: "🐞"; /* 무당벌레가 귀여워 */
 }
 
-.message.bot { 
-  background-color:#d4ffd4; 
-  text-align:left; 
-  margin-right:auto; 
-  display: inline-block;
-}
-
-/* ----------------- 입력창 ----------------- */
-.input-container { 
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-  gap:10px; 
-  flex-wrap:wrap; 
-  margin:20px auto; 
-  width:100%; 
-  max-width:700px; 
-}
-
-#input { 
-  flex:1; 
-  min-width:200px; 
-  height:50px; 
-  padding:12px 20px; 
-  border-radius:25px; 
-  border:1px solid #ccc; 
-  font-size:16px; 
-  outline:none; 
-  resize:none; 
-}
-
-#input:focus { 
-  border-color:#6fa8ff; 
-  box-shadow: inset 1px 1px 8px rgba(0,0,0,0.2); 
-}
-
-/* == 저장 버튼 == */
-button.send-btn { 
-  padding:0 25px; 
-  height:50px; 
-  background:linear-gradient(135deg,#6fa8ff,#3a8dde); 
-  border:none; 
-  border-radius:25px; 
-  color:#fff; 
-  font-size:16px; 
-  font-weight:bold; 
-  cursor:pointer; 
-  box-shadow:0 5px 15px rgba(58,141,222,0.4); 
-}
-
-button.send-btn:hover { 
-  transform: translateY(-3px); 
-  box-shadow:0 8px 20px rgba(58,141,222,0.6); 
-}
-
-button.send-btn:active { 
-  transform: translateY(1px); 
-  box-shadow:0 4px 12px rgba(58,141,222,0.4); 
-}
-
-/* ----------------- 모달 ----------------- */
-.modal {
-  position: fixed; /* 화면 고정 */
-  top: 0; /* 상단 위치 */
-  left: 0; /* 좌측 위치 */
-  width: 100%; /* 가로 전체 */
-  height: 100%; /* 세로 전체 */
-  display: none; /* 기본 숨김 */
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  background-color: rgba(0,0,0,0.4); /* 반투명 배경 */
-  z-index: 100; /* 다른 요소 위 */
-}
-
-.modal-content {
-  background-color: white; /* 배경색 */
-  padding: 20px 30px; /* 안쪽 여백 */
-  border-radius: 16px; /* 모서리 둥글게 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  max-width: 400px; /* 최대 가로폭 */
-}
-
-.mood-options {
-  display: flex; /* flexbox 사용 */
-  flex-wrap: wrap; /* 줄바꿈 허용 */
-  justify-content: center; /* 중앙 정렬 */
-  gap: 8px; /* 요소 간 간격 */
-  margin-top: 12px; /* 위쪽 여백 */
-}
-
-/* ----------------- 포스트잇 ----------------- */
-.paper {
-  position: absolute; /* 위치 절대값 */
-  width: 200px; /* 가로 크기 */
-  height: 80px; /* 세로 크기 */
-  background-color: #fff7a1; /* 배경색 */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* 그림자 */
-  border-radius: 12px; /* 모서리 둥글게 */
-  display: flex; /* flexbox 사용 */
-  align-items: center; /* 세로 중앙 정렬 */
-  justify-content: center; /* 가로 중앙 정렬 */
-  font-size: 20px; /* 글자 크기 */
-  user-select: none; /* 드래그 방지 */
-  z-index: 10; /* 쌓임 순서 */
-  transition: transform 0.3s; /* 변형 시 애니메이션 */
-}
-
-.paper.crumple {
-  transform: rotate(20deg) scale(0.3); /* 회전 + 축소 */
-  opacity: 0; /* 투명하게 */
-}
-
-/* ----------------- 쓰레기통 ----------------- */
-
-#trash-container { 
-  text-align:center; 
-  margin: 5px 0 30px 0;
-}
-
-#trash { 
-  font-size:30px; 
-  padding:15px 30px; 
-  border:2px dashed #888; 
-  border-radius:15px; 
-  background-color:#ffffffcc; 
-  transition:transform 0.2s, box-shadow 0.2s; 
-}
-
-#trash.drag-over { 
-  transform: scale(1.1); 
-  box-shadow:0 0 15px rgba(0,0,0,0.3); 
+#plantStatus::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #fff;
+  border-bottom: 0;
+  margin-left: -10px;
+  margin-bottom: -10px;
 }
