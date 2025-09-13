@@ -1,10 +1,23 @@
 // ==================== Firebase 설정 ====================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
 import {
-  getAuth, GoogleAuthProvider,
-  signInWithPopup, signOut, onAuthStateChanged
+  getAuth, 
+  GoogleAuthProvider,
+  signInWithPopup, 
+  signOut, 
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// .env에 저장 됨 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -17,6 +30,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+
+// ==================== Firestore 연동 ====================
+async function loadGarden(userId) {
+  const ref = doc(db, "users", userId);
+  const snap = await getDoc(ref);
+  if (snap.exists() && snap.data().garden?.plants) {
+    return snap.data().garden.plants; // ['🌱','🌸',...]
+  }
+  return [];
+}
+
+async function saveGarden(userId, plants) {
+  if (!userId) return; // userId 없으면 저장하지 않음
+  const ref = doc(db, "users", userId);
+  await setDoc(ref, {
+    garden: { plants, lastUpdated: serverTimestamp() },
+    email: auth.currentUser.email,
+    name: auth.currentUser.displayName
+  }, { merge: true });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   // ==================== 요소 선택 ====================
@@ -53,9 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ✅ 1회 사용권 플래그
   let canUseGardenAction = false;
-
+  let userId = null;
   let initialMood = "";
   let resolvedMood = "";
+
 
   // ==================== 초기 상태 ====================
   loginScreen.style.display = "flex";
@@ -85,43 +120,56 @@ document.addEventListener("DOMContentLoaded", () => {
     handleLogout();
   });
 
-  function handleLogin(user) {
+  async function handleLogin(user) {
+    userId = user.uid;
+
+    resetChat(); // 로그인 직후 이전 채팅 초기화
+
     loginScreen.style.display = "none";
-    mainScreen.style.display = "block";
+    mainScreen.style.display  = "block";
     header.style.display = 'block';
-    nav.style.display = 'flex';
+    nav.style.display    = 'flex';
     document.querySelector('.user-info').style.display = 'flex';
     userName.textContent = user.displayName;
-    userPhoto.src = user.photoURL || "";
-    showGreetingModal();
+    userPhoto.src = user.photoURL || ""; // 기본 이미지 기능
+
+    // 🔑 Firestore에서 정원 불러오기
+    const plants = await loadGarden(user.uid);
+    Garden.startGarden(plants);
   }
 
   function handleLogout() {
+    userId = null;
     loginScreen.style.display = "flex";
-    mainScreen.style.display = "none";
-    gardenScreen.style.display = "none";
+    mainScreen.style.display  = "none";
+    gardenScreen.style.display= "none";
     header.style.display = 'none';
-    nav.style.display = 'none';
+    nav.style.display    = 'none';
     document.querySelector('.user-info').style.display = 'none';
+
+    resetChat(false);
+    Garden.startGarden([]); // 정원 비움
   }
 
   // ==================== 헤더·네비 버튼 ====================
   homeBtn.addEventListener("click", () => {
     mainScreen.style.display = "block";
     gardenScreen.style.display = "none";
-    resetChat(); // 상담 초기화
+
+    resetChat(); // 정원에서 돌아오면 초기 상담 모달 재실행
   });
 
   gardenBtn.addEventListener("click", () => {
-    mainScreen.style.display = "none";
-    gardenScreen.style.display = "block";
+  mainScreen.style.display = "none";
+  gardenScreen.style.display = "block";
 
-    if (!localStorage.getItem("gardenIntroShown")) {
-      gardenIntroModal.style.display = "flex";
-    } else {
-      Garden.startGarden();
-    }
-  });
+  if (!localStorage.getItem("gardenIntroShown")) {
+    gardenIntroModal.style.display = "flex";
+  } else {
+    Garden.startGarden(Garden.plants || []); // 안전하게 초기값 전달 
+  }
+});
+
 
   startGardenBtn.addEventListener("click", () => {
     gardenIntroModal.style.display = "none";
@@ -130,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ==================== 상담 초기화 ====================
-  function resetChat() {
+  function resetChat(showGreeting = true) {
     chatBox.innerHTML = "";
     input.value = "";
     moodModal.style.display = "none";
@@ -140,12 +188,26 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".paper").forEach(p => p.remove());
 
     canUseGardenAction = false;
-    plantButton.disabled = true;
-    waterButton.disabled = true;
+    setGardenButtonsState(false);
+
     plantStatus.textContent = "꽃을 심어 정원을 만들어봐요 ! 🌳";
 
-    showGreetingModal();
+    if(showGreeting) showGreetingModal();
   }
+
+  function setGardenButtonsState(enabled) {
+  plantButton.disabled = !enabled;
+  waterButton.disabled = !enabled;
+
+  if (enabled) {
+    plantButton.classList.remove("disabled");
+    waterButton.classList.remove("disabled");
+  } else {
+    plantButton.classList.add("disabled");
+    waterButton.classList.add("disabled");
+  }
+}
+
 
   // ==================== 인사 모달 ====================
   function showGreetingModal() {
@@ -279,103 +341,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ==================== 정원 가꾸기 ====================
   const Garden = (() => {
-    const sprouts = [];
+    let plants = [];
+    let sprouts = [];
     const flowers = ["🌸","🌼","🌺","🌻","🌹","🪻","🌷"];
     let lastInsectTrigger = 0;
 
-    function startGarden() {
+    function render() {
       gardenContainer.innerHTML = "";
       sprouts.length = 0;
-      plantStatus.textContent = "꽃을 심어 정원을 만들어봐요 ! 🌳";
-      lastInsectTrigger = 0;
+      plants.forEach(emoji => {
+        const el = document.createElement("div");
+        el.className = "flower";
+        el.textContent = emoji;
+        el.style.left = `${Math.random()*(gardenContainer.clientWidth-30)}px`;
+        el.style.bottom = `${Math.random()*(gardenContainer.clientHeight-30)}px`;
+        gardenContainer.appendChild(el);
+        sprouts.push(el);
+      });
     }
 
-    plantButton.addEventListener("click", () => {
-      if (!canUseGardenAction) return;
-      canUseGardenAction = false;
-      plantButton.disabled = true;
-      waterButton.disabled = true;
+    async function addSprouts(count) {
+      for (let i=0; i<count; i++) plants.push("🌱");
+      await saveGarden(userId, plants);
+      render();
+      plantStatus.textContent = `${count}개의 새싹을 심었어요! ☘️`;
+    }
 
-      const sproutCount = Math.floor(Math.random() * 3) + 1;
-      for (let i = 0; i < sproutCount; i++) {
-        const sprout = document.createElement("div");
-        sprout.className = "flower";
-        sprout.textContent = "🌱";
-        sprout.style.left = `${Math.random() * (gardenContainer.clientWidth - 30)}px`;
-        sprout.style.bottom = `${Math.random() * (gardenContainer.clientHeight - 30)}px`;
-        const scale = 0.8 + Math.random() * 0.4;
-        const rotate = Math.random() * 30 - 15;
-        sprout.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
-        gardenContainer.appendChild(sprout);
-        sprouts.push(sprout);
-      }
-      plantStatus.textContent = `${sproutCount}개의 새싹을 심었어요 ! ☘️`;
-    });
-
-    waterButton.addEventListener("click", () => {
-      if (!canUseGardenAction) return;
-      canUseGardenAction = false;
-      plantButton.disabled = true;
-      waterButton.disabled = true;
-
-      if (sprouts.length === 0) return;
-      const index = Math.floor(Math.random() * sprouts.length);
-      const sprout = sprouts.splice(index, 1)[0];
+    async function bloomOne() {
+      const index = plants.findIndex(p => p === "🌱");
+      if (index === -1) return;
       const flowerEmoji = flowers[Math.floor(Math.random() * flowers.length)];
-      sprout.textContent = flowerEmoji;
-      const scale = 1 + Math.random() * 0.5;
-      const rotate = Math.random() * 40 - 20;
-      sprout.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
-      plantStatus.textContent = "꽃이 폈어요 ! 🌻";
+      plants[index] = flowerEmoji;
+      await saveGarden(userId, plants);
+      render();
+      plantStatus.textContent = "꽃이 폈어요! 🌻";
       maybeSpawnInsect();
-    });
+    }
 
-    return {
-      startGarden,
-      get lastInsectTrigger() { return lastInsectTrigger; },
-      set lastInsectTrigger(val) { lastInsectTrigger = val; }
-    };
+    function startGarden(initialPlants = []) {
+      plants = [...initialPlants];
+      render();
+      plantStatus.textContent = plants.length
+        ? "정원을 가꿔봐요"
+        : "꽃을 심어 정원을 만들어봐요! 🌳";
+    }
+
+    return { startGarden, addSprouts, bloomOne, get plants() { return plants; },
+             get lastInsectTrigger() { return lastInsectTrigger; },
+             set lastInsectTrigger(v){ lastInsectTrigger=v; } };
   })();
 
+  plantButton.addEventListener("click", () => {
+    if (!canUseGardenAction || !userId) return;
+    canUseGardenAction = false;
+    Garden.addSprouts(Math.floor(Math.random()*3)+1);
+  });
+
+  waterButton.addEventListener("click", () => {
+    if (!canUseGardenAction || !userId) return;
+    canUseGardenAction = false;
+    Garden.bloomOne();
+  });
+
   function maybeSpawnInsect() {
-    if (!gardenContainer) return;
-    const flowers = gardenContainer.querySelectorAll(".flower");
-    const flowerCount = flowers.length;
+    const flowerCount = Garden.plants.filter(p=>p!=="🌱").length;
     if (flowerCount < 8) return;
     if (flowerCount - Garden.lastInsectTrigger < 8) return;
+
     Garden.lastInsectTrigger = flowerCount;
 
-    const insects = ["🦋","🐝"];
     const insect = document.createElement("div");
     insect.className = "insect";
-    insect.textContent = insects[Math.floor(Math.random()*insects.length)];
-    
-    let left = Math.random() * (gardenContainer.clientWidth - 30);
-    let top  = Math.random() * (gardenContainer.clientHeight - 30);
-
+    insect.textContent = ["🦋","🐝"][Math.floor(Math.random()*2)];
     insect.style.position = "absolute";
-    insect.style.left = left+"px";
-    insect.style.top = top+"px";
-    insect.style.fontSize = "24px";
+    insect.style.left = Math.random() * (gardenContainer.clientWidth - 30) + "px";
+    insect.style.top  = Math.random() * (gardenContainer.clientHeight - 30) + "px";
+    
+    // flowerCount 0일 경우 불필요한 애니메이션 방지
+    if (flowerCount === 0) return;
+
     gardenContainer.appendChild(insect);
 
-    const duration = 5000;
-    const startTime = performance.now();
+    const duration = 5000, start = performance.now();
     const amplitude = 20 + Math.random()*15;
     const speed = 0.005 + Math.random()*0.002;
 
-    function animate(time){
-      const elapsed = time-startTime;
-      if(elapsed<duration){
-        const newTop = top-(elapsed/duration)*100;
-        const newLeft = left + Math.sin(elapsed*speed)*amplitude;
-        insect.style.top = newTop+"px";
-        insect.style.left = newLeft+"px";
+    function animate(t){
+      const e = t - start;
+      if (e < duration) {
+        insect.style.top  = parseFloat(insect.style.top) - (e/duration)*100 + "px";
+        insect.style.left = parseFloat(insect.style.left) + Math.sin(e*speed)*amplitude + "px";
         requestAnimationFrame(animate);
-      } else { insect.remove(); }
+      } else insect.remove();
     }
     requestAnimationFrame(animate);
   }
 
   setInterval(maybeSpawnInsect, 2000);
-});
+  });
