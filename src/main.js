@@ -51,8 +51,6 @@ async function saveGarden(userId, plants, harvestedCount){
 const loginScreen = document.getElementById("loginScreen");
 const mainScreen = document.getElementById("mainScreen");
 const gardenScreen = document.getElementById("gardenScreen");
-// == 민서 - 계란 깨기
-const eggbreakScreen = document.getElementById("eggbreakScreen");
 
 // 구글 로그인 및 유저정보
 const googleLoginBtn = document.getElementById("googleLoginBtn");
@@ -64,9 +62,6 @@ const header = document.querySelector("header");
 const nav = document.querySelector("nav.nav");
 const homeBtn = document.getElementById("homeBtn");
 const gardenBtn = document.getElementById("gardenBtn");
-
-// == 민서 - 계란 깨기
-const eggbreakBtn = document.getElementById("eggbreakBtn");
 
 // 상담 관련
 const chatBox = document.getElementById("chat");
@@ -94,7 +89,7 @@ let resolvedMood = "";
 
 // ==================== 상태창 텍스트 ====================
 function updatePlantStatusInitial(){ plantStatus.textContent = "🐞 씨앗을 심어 채소를 키워봐요 ! 🫛"; }
-function onSeedPlanted(count=1){ plantStatus.textContent = `🐞 ${count}개의 씨앗을 심었어요 ! 🌱`; }
+function onSeedPlanted(count=1){ plantStatus.textContent = `🐞 ${count}개의 씨앗을 심었어요 🌱`; }
 function onGrowing(){ plantStatus.textContent = "🐞 쑥쑥 자라고 있어요 🥦"; }
 function onFullyGrown(){ plantStatus.textContent = "🐞 다 자랐어요! 채소를 수확해주세요 🌽"; }
 
@@ -156,16 +151,10 @@ homeBtn.addEventListener("click", ()=>{
   mainScreen.style.display="block"; 
   gardenScreen.style.display="none"; resetChat(); });
 
-  // == 민서 - 계란 깨기
-  eggbreakScreen.style.display = "none";
-
 gardenBtn.addEventListener("click", ()=>{ 
   mainScreen.style.display="none"; 
   gardenScreen.style.display="block"; 
   Garden.render();
-
-  // == 민서 - 계란 깨기
-  eggbreakScreen.style.display = "flex";
 });
 
 // ==================== 상담 초기화 ====================
@@ -179,7 +168,7 @@ function resetChat(showGreeting=true){
   document.querySelectorAll(".paper").forEach(p=>p.remove());
   canUseGardenAction = true;
   setGardenButtonsState(true);
-  plantStatus.textContent = "잘 자라고 있어요🌱!";
+  plantStatus.textContent = "잘 자라고 있어요 🌱";
   if(showGreeting) showGreetingModal();
 }
 
@@ -551,17 +540,16 @@ waterButton.addEventListener("click", async()=>{
 });
 
 
-// ============ 민서 - 계란깨기
+// ============ 민서 - 계란깨기 ===============
 
-// ======== 계란 깨기 버튼 ==============
-eggbreakBtn.addEventListener("click", () => {
-  mainScreen.style.display = "none";
-  gardenScreen.style.display = "none";
-  eggbreakScreen.style.display = "block";
-});
+// 요소 참조
+const eggbreakBtn   = document.getElementById("eggbreakBtn");
+const eggbreakScreen = document.getElementById("eggbreakScreen");
+const introModal    = document.getElementById("intro-modal");
+
+
 //계란깨기
   document.addEventListener('DOMContentLoaded', () => {
-    const introModal = document.getElementById('intro-modal');
     const startBtn = document.getElementById('start-btn');
     const gameContainer = document.getElementById('game-container');
     const selectionScreen = document.getElementById('selection-screen');
@@ -571,6 +559,17 @@ eggbreakBtn.addEventListener("click", () => {
     const eggImage = document.getElementById('egg-image');
     const toolImage = document.getElementById('tool-image');
     const messageElement = document.getElementById('message');
+
+    // 스트레스 뿌셔 버튼
+eggbreakBtn.addEventListener("click", () => {
+  mainScreen.style.display = "none";
+  gardenScreen.style.display = "none";
+  eggbreakScreen.style.display = "block";
+
+      // ✅ 여기서만 모달을 보여준다
+  introModal.style.display = "flex";
+});
+
 
     let clickCount = 0;
     let selectedEgg = null;
