@@ -15,7 +15,8 @@
 <!-- ================= 공통 네비게이션 ================= -->
 <nav class="nav">
   <button id="homeBtn">🤖 상담하기</button>
-  <button id="gardenBtn">🍀 정원 가꾸기</button>
+  <button id="gardenBtn">🍅 텃밭 가꾸기</button>
+  <button id="eggbreakBtn">👊스트레스 뿌셔</button>
 </nav>
 
 <!-- 유저 정보 -->
@@ -30,24 +31,17 @@
 
   <!-- 정원 배경 박스 : 네비게이션 바로 밑에 위치 -->
   <div id="gardenContainer" class="garden-box">
-    <!-- 꽃/씨앗 이모지가 JS로 추가될 영역 -->
+    <!-- 상태창: 상단 중앙 -->
+    <div id="harvestCountStatus" class="status-bar">수확한 채소: 0</div>
   </div>
-
-  <!-- 정원 가꾸기 진입 안내 모달 -->
-<div id="gardenIntroModal" class="modal">
-  <div class="modal-content">
-    <p>🌳 꽃을 심어 정원을 만들어봐요! 🌳</p>
-    <button id="startGardenBtn" class="garden-btn">정원 만들기</button>
-  </div>
-</div>
 
   <!-- 하단 중앙 버튼 -->
   <div class="garden-controls">
-    <button id="plantButton" class="garden-btn">꽃 심기 🪴</button>
+    <button id="plantButton" class="garden-btn">씨앗 심기 🪴</button>
     <button id="waterButton" class="garden-btn" disabled>물 주기 💧</button>
   </div>
   <p id="plantStatus">
-    <span class="status-text">꽃을 심어 정원을 만들어봐요 ! 🌳</span>
+    <span class="status-text">씨앗을 심어 텃밭을 만들어봐요 ! 🍅</span>
 </p>
 
 </div>
@@ -108,6 +102,49 @@
     <textarea id="input" placeholder="💬 뭐든 말해도 돼요 !"></textarea>
     <button class="send-btn" id="sendBtn">전송</button>
   </div>
+</div>
+
+
+<!----------------------- 민서 - 계란깨기 ------------------------>
+<!-- 계란 깨기 화면 -->
+<div id="eggbreakScreen" class="garden-page" style="display:none;">
+
+    <div id="intro-modal" class="modal">
+        <div class="modal-content">
+            <p>스트레스 풀러 잘 왔어!</p>
+            <button id="start-btn">시작하기</button>
+        </div>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div id="selection-screen">
+            <h2>계란을 골라줘!</h2>
+            <div id="egg-selection">
+                <img src="./images/fire.webp" alt="계란 1" class="selectable-egg">
+                <img src="./images/rub.webp" alt="계란 2" class="selectable-egg">
+                <img src="./images/life.jpg" alt="계란 3" class="selectable-egg">
+            </div>
+
+            <h2>도구를 골라줘!</h2>
+            <div id="tool-selection">
+                <img src="./images/hammer.webp" alt="망치" class="selectable-tool">
+                <img src="./images/baseball.jfif" alt="야구 방망이" class="selectable-tool">
+                <img src="./images/flyfan.avif" alt="프라이팬" class="selectable-tool">
+                <img src="./images/foor.jpg" alt="발" class="selectable-tool">
+            </div>
+            <button id="start-game-btn" disabled>게임 시작</button>
+        </div>
+
+        <div id="game-screen" style="display: none;">
+            <div id="counter">카운트: <span>0</span></div>
+            <div id="egg-container">
+                <img id="egg-image" src="" alt="계란">
+                <img id="tool-image" src="" alt="도구" class="tool-animation">
+            </div>
+            <p id="message"></p>
+        </div>
+    </div>
+
 </div>
 
 <!-- ================= JS 연결 ================= -->
