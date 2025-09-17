@@ -789,8 +789,7 @@ button.send-btn:active {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#start-btn,
-#start-game-btn {
+#start-btn{
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -801,9 +800,28 @@ button.send-btn:active {
     margin-top: auto;
 }
 
-#start-game-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+#start-game-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #e67e22; /* 중간 오렌지 */
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f0a05d, #e67e22); /* 연한 오렌지 → 진한 오렌지 */
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+  margin-top : px;
+}
+
+#start-game-btn:hover:enabled {
+  background: linear-gradient(135deg, #f2b57f, #eb8130);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+}
+
+#start-game-btn:active:enabled {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(1px);
 }
 
 .egg-box {
@@ -815,7 +833,7 @@ button.send-btn:active {
     max-width: 700px;
     height: 70vh;
     overflow-y: auto;
-    background: url('../images/garden.background.jpg');
+    background: white;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -907,10 +925,16 @@ button.send-btn:active {
 }
 
 #counter {
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    margin-top: 50px; /* 카운터 상단 여백 */
+  display: inline-block;
+  padding: 10px 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  font-size: 16px;
+  color: #333;
+  margin-top: 30px;
+  border: 2px dashed #888;
+  border-radius: 12px;
+  background-color: #ffffffcc;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #egg-container {
