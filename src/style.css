@@ -90,10 +90,8 @@ nav.nav {
     font-size: 0.7rem;
   }
 }
-
   nav.nav {
-    margin-top: -10px !important;   
-    gap: 10px !important;     
+    margin-top: -10px !important;       
   }
 
   /* 상담창 */
@@ -311,7 +309,7 @@ nav.nav button {
   border-radius: 12px;
   padding: 10px 20px;
   margin: 0 20px;
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   color: #444;
   font-weight: 600;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
