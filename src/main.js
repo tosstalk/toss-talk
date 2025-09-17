@@ -543,13 +543,11 @@ waterButton.addEventListener("click", async()=>{
 // ============ 민서 - 계란깨기 ===============
 
 // 요소 참조
-const eggbreakBtn   = document.getElementById("eggbreakBtn");
+const eggbreakBtn = document.getElementById("eggbreakBtn");
 const eggbreakScreen = document.getElementById("eggbreakScreen");
-const introModal    = document.getElementById("intro-modal");
+const introModal = document.getElementById("intro-modal");
 
-
-//계란깨기
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.getElementById('start-btn');
     const gameContainer = document.getElementById('game-container');
     const selectionScreen = document.getElementById('selection-screen');
@@ -559,29 +557,44 @@ const introModal    = document.getElementById("intro-modal");
     const eggImage = document.getElementById('egg-image');
     const toolImage = document.getElementById('tool-image');
     const messageElement = document.getElementById('message');
+    const eggDisplay = document.getElementById('egg-display');
+    const prevEggBtn = document.getElementById('prev-egg');
+    const nextEggBtn = document.getElementById('next-egg');
+    const toolDisplay = document.getElementById('tool-display');
+    const prevToolBtn = document.getElementById('prev-tool');
+    const nextToolBtn = document.getElementById('next-tool');
 
     // 스트레스 뿌셔 버튼
-eggbreakBtn.addEventListener("click", () => {
-  mainScreen.style.display = "none";
-  gardenScreen.style.display = "none";
-  eggbreakScreen.style.display = "block";
-
-      // ✅ 여기서만 모달을 보여준다
-  introModal.style.display = "flex";
-});
-
+    eggbreakBtn.addEventListener("click", () => {
+        mainScreen.style.display = "none";
+        gardenScreen.style.display = "none";
+        eggbreakScreen.style.display = "block";
+        introModal.style.display = "flex";
+    });
 
     let clickCount = 0;
-    let selectedEgg = null;
-    let selectedTool = null;
+    let selectedEggIndex = 0;
+    let selectedToolIndex = 0;
 
-    const eggImages = [
+    // 계란과 도구 이미지 경로 배열
+    const eggs = [
+        { src: "./images/egg.png", alt: "계란 1" },
+        { src: "./images/white_egg.png", alt: "계란 2" },
+        { src: "./images/gold_egg.png", alt: "계란 3" }
+    ];
+    const tools = [
+        { src: "./images/hammer.webp", alt: "망치" },
+        { src: "./images/baseball.jfif", alt: "야구 방망이" },
+        { src: "./images/flyfan.avif", alt: "프라이팬" },
+        { src: "./images/foor.jpg", alt: "발" }
+    ];
+    // 이 부분은 계란이 깨지는 이미지 URL인데, 네가 직접 추가해야 해
+    const finalEggImages = [
         'https://via.placeholder.com/300/f0f0f0?text=Egg',
         'https://via.placeholder.com/300/e0e0e0?text=Cracked+1',
         'https://via.placeholder.com/300/d0d0d0?text=Cracked+2',
         'https://via.placeholder.com/300/a0a0a0?text=Broken'
     ];
-
     const finalExplosionImage = 'https://via.placeholder.com/300/ff0000?text=Boom!';
 
     const countStages = {
@@ -591,45 +604,95 @@ eggbreakBtn.addEventListener("click", () => {
         explode: 100
     };
 
+
+// 모든 상태를 초기화하는 함수
+function resetEggGame() {
+    // 1. 상태 변수 초기화
+    clickCount = 0;
+    selectedEggIndex = 0;
+    selectedToolIndex = 0;
+
+    // 2. DOM 요소 초기화
+    const selectionScreen = document.getElementById('selection-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const eggDisplay = document.getElementById('egg-display');
+    const toolDisplay = document.getElementById('tool-display');
+    const startGameBtn = document.getElementById('start-game-btn');
+    const counterElement = document.querySelector('#counter span');
+    const messageElement = document.getElementById('message');
+
+    // 화면 초기화
+    selectionScreen.style.display = 'block';
+    gameScreen.style.display = 'none';
+
+    // 이미지 및 버튼 상태 초기화
+    eggDisplay.src = eggs[0].src;
+    toolDisplay.src = tools[0].src;
+    startGameBtn.disabled = false;
+    
+    // 카운터 및 메시지 초기화
+    counterElement.textContent = '0';
+    messageElement.textContent = '';
+}
+
+
+// 스트레스 뿌셔 버튼
+eggbreakBtn.addEventListener("click", () => {
+    mainScreen.style.display = "none";
+    gardenScreen.style.display = "none";
+    eggbreakScreen.style.display = "block";
+    introModal.style.display = "flex";
+    
+    // 버튼 클릭 시 게임 상태 초기화 함수 호출
+    resetEggGame(); 
+});
+
     // 1. 시작 버튼 클릭 시 모달 닫기
     startBtn.addEventListener('click', () => {
         introModal.style.display = 'none';
         gameContainer.style.display = 'block';
     });
-
-    // 2. 계란 선택
-    document.querySelectorAll('.selectable-egg').forEach(egg => {
-        egg.addEventListener('click', () => {
-            document.querySelectorAll('.selectable-egg').forEach(e => e.classList.remove('selected'));
-            egg.classList.add('selected');
-            selectedEgg = egg.src;
-            checkSelection();
-        });
+    
+    // 2. 계란 넘기기
+    prevEggBtn.addEventListener('click', () => {
+        selectedEggIndex = (selectedEggIndex - 1 + eggs.length) % eggs.length;
+        eggDisplay.src = eggs[selectedEggIndex].src;
     });
 
-    // 3. 도구 선택
-    document.querySelectorAll('.selectable-tool').forEach(tool => {
-        tool.addEventListener('click', () => {
-            document.querySelectorAll('.selectable-tool').forEach(t => t.classList.remove('selected'));
-            tool.classList.add('selected');
-            selectedTool = tool.src;
-            checkSelection();
-        });
+    nextEggBtn.addEventListener('click', () => {
+        selectedEggIndex = (selectedEggIndex + 1) % eggs.length;
+        eggDisplay.src = eggs[selectedEggIndex].src;
     });
 
-    // 선택 완료 확인
+    // 3. 도구 넘기기
+    prevToolBtn.addEventListener('click', () => {
+        selectedToolIndex = (selectedToolIndex - 1 + tools.length) % tools.length;
+        toolDisplay.src = tools[selectedToolIndex].src;
+    });
+
+    nextToolBtn.addEventListener('click', () => {
+        selectedToolIndex = (selectedToolIndex + 1) % tools.length;
+        toolDisplay.src = tools[selectedToolIndex].src;
+    });
+
+    // 선택된 이미지 확인 (버튼 활성화)
     function checkSelection() {
-        if (selectedEgg && selectedTool) {
+        if (selectedEggIndex !== null && selectedToolIndex !== null) {
             startGameBtn.disabled = false;
         }
     }
+
+    // 초기 이미지 로드 및 선택 클래스 추가
+    eggDisplay.classList.add('selected');
+    toolDisplay.classList.add('selected');
+    checkSelection();
 
     // 4. 게임 시작 버튼
     startGameBtn.addEventListener('click', () => {
         selectionScreen.style.display = 'none';
         gameScreen.style.display = 'block';
-        eggImage.src = selectedEgg;
-        toolImage.src = selectedTool;
+        eggImage.src = eggs[selectedEggIndex].src;
+        toolImage.src = tools[selectedToolIndex].src;
     });
 
     // 5. 계란 클릭 시 이벤트
@@ -647,13 +710,13 @@ eggbreakBtn.addEventListener("click", () => {
             toolImage.style.opacity = 0;
         }, 200);
 
-        // 계란 깨지는 이미지 변경
+        // 계란 깨지는 이미지 변경 (이 부분은 네가 가진 깨지는 이미지 경로로 수정해야 해)
         if (clickCount === countStages.crack1) {
-            eggImage.src = eggImages[1];
+            eggImage.src = finalEggImages[1];
         } else if (clickCount === countStages.crack2) {
-            eggImage.src = eggImages[2];
+            eggImage.src = finalEggImages[2];
         } else if (clickCount === countStages.crack3) {
-            eggImage.src = eggImages[3];
+            eggImage.src = finalEggImages[3];
         }
 
         // 마지막 폭발
