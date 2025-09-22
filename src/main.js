@@ -578,30 +578,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 계란과 도구 이미지 경로 배열
     const eggs = [
-        { src: "./images/egg.png", alt: "계란 1" },
-        { src: "./images/white_egg.png", alt: "계란 2" },
-        { src: "./images/gold_egg.png", alt: "계란 3" }
-    ];
+    { 
+        src: "./images/red_egg.png", 
+        alt: "계란 1",
+        crackedImages: [
+            "./images/red_egg_crack1.png", // 첫 번째 깨지는 단계
+            "./images/red_egg_crack2.png", // 두 번째 깨지는 단계
+            
+        ],
+
+    },
+    { 
+        src: "./images/pupple_egg.png", 
+        alt: "계란 2",
+        crackedImages: [
+            "./images/pupple_egg_crack1.png",
+            "./images/pupple_egg_crack2.png"
+        ],
+    },
+    { 
+        src: "./images/green_egg.png", 
+        alt: "계란 3",
+        crackedImages: [
+            "./images/green_egg_crack1.png",
+            "./images/green_egg_crack2.png"
+        ],
+    }
+];
     const tools = [
-        { src: "./images/hammer.webp", alt: "망치" },
-        { src: "./images/baseball.jfif", alt: "야구 방망이" },
-        { src: "./images/flyfan.avif", alt: "프라이팬" },
-        { src: "./images/foor.jpg", alt: "발" }
+        { src: "./images/hammer.png", alt: "망치" },
+        { src: "./images/baseball.png", alt: "야구 방망이" },
+        { src: "./images/pan.png", alt: "프라이팬" },
+        { src: "./images/mic.png", alt: "마이크" }
     ];
-    // 이 부분은 계란이 깨지는 이미지 URL인데, 네가 직접 추가해야 해
-    const finalEggImages = [
-        'https://via.placeholder.com/300/f0f0f0?text=Egg',
-        'https://via.placeholder.com/300/e0e0e0?text=Cracked+1',
-        'https://via.placeholder.com/300/d0d0d0?text=Cracked+2',
-        'https://via.placeholder.com/300/a0a0a0?text=Broken'
-    ];
-    const finalExplosionImage = 'https://via.placeholder.com/300/ff0000?text=Boom!';
+    
+    const finalExplosionImage = "./images/fire.png";
 
     const countStages = {
         crack1: 10,
-        crack2: 30,
-        crack3: 50,
-        explode: 100
+        crack2: 20,
+        explode: 30
     };
 
 
@@ -710,20 +726,20 @@ eggbreakBtn.addEventListener("click", () => {
             toolImage.style.opacity = 0;
         }, 200);
 
-        // 계란 깨지는 이미지 변경 (이 부분은 네가 가진 깨지는 이미지 경로로 수정해야 해)
-        if (clickCount === countStages.crack1) {
-            eggImage.src = finalEggImages[1];
-        } else if (clickCount === countStages.crack2) {
-            eggImage.src = finalEggImages[2];
-        } else if (clickCount === countStages.crack3) {
-            eggImage.src = finalEggImages[3];
-        }
+        // 계란 깨지는 이미지 변경 로직 수정
+    const currentEgg = eggs[selectedEggIndex]; // 현재 선택된 계란 정보 가져오기
 
-        // 마지막 폭발
-        if (clickCount >= countStages.explode) {
-            eggImage.src = finalExplosionImage;
-            messageElement.textContent = "스트레스 완전 박살!";
-            eggImage.style.cursor = 'default';
-        }
+    if (clickCount === countStages.crack1) {
+        eggImage.src = currentEgg.crackedImages[0]; // 첫 번째 깨진 이미지
+    } else if (clickCount === countStages.crack2) {
+        eggImage.src = currentEgg.crackedImages[1]; // 두 번째 깨진 이미지
+    } 
+    // 최종 폭발
+    if (clickCount >= countStages.explode) {
+        // 계란별 폭발 이미지가 있다면 그걸 사용, 없으면 공통 폭발 이미지 사용
+        eggImage.src = finalExplosionImage;
+        messageElement.textContent = "스트레스 완전 박살!";
+        eggImage.style.cursor = 'default';
+    }
     });
 });
