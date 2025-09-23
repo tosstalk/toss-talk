@@ -906,7 +906,8 @@ button.send-btn:active {
     border-radius: 10px;
     transition: transform 0.2s, border-color 0.2s;
     width: 150px; /* 이미지 너비 고정 */
-    height: auto; /* 비율 유지 */
+    height: 150px; /* 이미지 높이 고정 */
+    object-fit: contain; /* 비율을 유지하면서 박스에 맞게 조절 */
 }
 
 /* 선택된 아이템에 적용되는 스타일 */
