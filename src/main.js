@@ -574,6 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toolDisplay = document.getElementById('tool-display');
     const prevToolBtn = document.getElementById('prev-tool');
     const nextToolBtn = document.getElementById('next-tool');
+    const eggStatus = document.getElementById('egg-status');
 
     // 스트레스 뿌셔 버튼
     eggbreakBtn.addEventListener("click", () => {
@@ -649,27 +650,28 @@ function resetEggGame() {
     const messageElement = document.getElementById('message');
 
     // 화면 초기화
-    selectionScreen.style.display = 'block';
-    gameScreen.style.display = 'none';
-    
-   // 버튼 초기화
-    startGameBtn.style.display = 'inline-block'; // 버튼 다시 보이게
-    startGameBtn.disabled = false;              // 버튼 활성화
+   selectionScreen.style.display = 'block';
+   gameScreen.style.display = 'none';
 
-    // 이미지 및 버튼 상태 초기화
-    eggDisplay.src = eggs[0].src;
-    toolDisplay.src = tools[0].src;
-    startGameBtn.disabled = false;
-    
-    // 카운터 및 메시지 초기화
-    counterElement.textContent = '0';
-    messageElement.textContent = '';
+   // 초기 메시지
+   eggStatus.textContent = "🥚 계란과 도구를 골라줘 🔨";
+
+   // 게임 시작 버튼 항상 활성화
+   startGameBtn.disabled = false; 
+   startGameBtn.style.display = 'inline-block';
+
+// 이미지 초기화
+eggDisplay.src = eggs[0].src;
+toolDisplay.src = tools[0].src;
+
+// 카운터 초기화
+counterElement.textContent = '0';
+
    
     // 선택 인덱스 초기화
     selectedEggIndex = 0;
     selectedToolIndex = 0;
 }
-
 
 // 스트레스 뿌셔 버튼
 eggbreakBtn.addEventListener("click", () => {
@@ -680,8 +682,6 @@ eggbreakBtn.addEventListener("click", () => {
     // 버튼 클릭 시 게임 상태 초기화 함수 호출
     resetEggGame(); 
 });
-
-    
     // 2. 계란 넘기기
     prevEggBtn.addEventListener('click', () => {
         selectedEggIndex = (selectedEggIndex - 1 + eggs.length) % eggs.length;
@@ -722,6 +722,8 @@ eggbreakBtn.addEventListener("click", () => {
         gameScreen.style.display = 'block';
         eggImage.src = eggs[selectedEggIndex].src;
         toolImage.src = tools[selectedToolIndex].src;
+       // 게임 시작 시 초기 메시지
+       eggStatus.textContent = "🐣 계란을 마구마구 때려봐 ! 🔨";
         // 게임 시작하면 버튼 안 보이게 숨기기
         startGameBtn.style.display = 'none';
     });
@@ -742,19 +744,19 @@ eggbreakBtn.addEventListener("click", () => {
         }, 200);
 
         // 계란 깨지는 이미지 변경 로직 수정
-    const currentEgg = eggs[selectedEggIndex]; // 현재 선택된 계란 정보 가져오기
-
-    if (clickCount === countStages.crack1) {
+        const currentEgg = eggs[selectedEggIndex]; // 현재 선택된 계란 정보 가져오기
+        if (clickCount === countStages.crack1) {
         eggImage.src = currentEgg.crackedImages[0]; // 첫 번째 깨진 이미지
+        eggStatus.textContent = "🐣 금 가기 시작했어 ! 🪓";
     } else if (clickCount === countStages.crack2) {
         eggImage.src = currentEgg.crackedImages[1]; // 두 번째 깨진 이미지
+        eggStatus.textContent = "🐣 거의 다 왔어 ! ⛏️";
     } 
     // 최종 폭발
     if (clickCount >= countStages.explode) {
-        // 계란별 폭발 이미지가 있다면 그걸 사용, 없으면 공통 폭발 이미지 사용
-        eggImage.src = finalExplosionImage;
-        messageElement.textContent = "스트레스 완전 박살!";
-        eggImage.style.cursor = 'default';
+            eggImage.src = finalExplosionImage;
+            eggStatus.textContent = "🐣 스트레스 완전 박살 ! 💥"; // 상태창에 메시지
+            eggImage.style.cursor = 'default';
     }
     });
 });

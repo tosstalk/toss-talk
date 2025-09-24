@@ -289,7 +289,7 @@ nav.nav button {
 
 nav.nav button:hover {
   transform: translateY(-2px);
-  border-color: #6fa8ff;
+  border-color: #a9a5a5;
   box-shadow: inset 1px 1px 8px rgba(0,0,0,0.2);
 }
 
@@ -323,7 +323,7 @@ nav.nav button:hover {
   background:  #f8f8f8;
   padding: 5px 10px;
   color: #555454;
-  border: 2px solid  #2a6fc5;
+  border: 2px solid #a9a5a5;
   font-weight: 400;
   font-size: 1rem;
 }
@@ -786,7 +786,7 @@ button.send-btn:active {
   transition: all 0.2s;
   margin-top: 10px;
   align-self: center;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 #start-game-btn:hover:enabled {
@@ -844,16 +844,11 @@ button.send-btn:active {
     border: none;
     font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: #e67e22;
     cursor: pointer;
     padding: 10px;
     transition: color 0.2s;
 }
-
-.nav-btn:hover {
-    color: #007BFF;
-}
-
 /* 선택 가능한 아이템의 공통 스타일 (이제는 단일 이미지에만 적용) */
 .selectable-item {
     cursor: pointer;
@@ -867,7 +862,7 @@ button.send-btn:active {
 
 /* 선택된 아이템에 적용되는 스타일 */
 .selectable-item.selected {
-    border-color: #007BFF;
+    border-color: #e67e22;
 }
 
 /* 마우스 오버 시 효과 */
@@ -935,10 +930,38 @@ button.send-btn:active {
     50%  { transform: translateY(0px)  scale(1.1); opacity: 1; }
     100% { transform: translateY(0px)  scale(1);   opacity: 0; }
 }
-
-#message {
-    margin-top: 20px;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #ff0000;
+#egg-status {
+  display: inline-block;
+  padding: 10px 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  font-size: 16px;
+  color: #333;
+  margin-top: 30px;
+  border: 2px dashed #888;
+  border-radius: 12px;
+  background-color: #ffffffcc;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+#egg-Status::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #fff;
+  border-bottom: 0;
+  margin-left: -10px;
+  margin-bottom: -10px;
+}
+#egg-control {
+  display: flex;
+  flex-direction: column;  /* 위에서 아래로 정렬 */
+  align-items: center;     /* 중앙 정렬 */
+  gap: 10px;               /* status와 버튼 간격 */
+  width: 100%;
+  margin-top: 0.5px;
+}
+
+
