@@ -1,146 +1,7 @@
-/* ========== 모바일용 전체 스타일 ========== */
-@media (max-width: 767px) {
-
-  /* Garden 배경 */
-  #gardenContainer {
-    background-image: url("../images/garden.background.mobile.jpg");
-    background-position: center bottom;
-    background-size: cover;
-    width: 100%;
-    height: 60vh;
-    overflow: hidden;
-    position: relative;
-    margin-top: 5px !important;
-  }
-
-  /* 헤더 */
-  header {
-    font-size: 1.4rem !important;
-    padding: 15px !important;
-    margin-top: 0 !important;
-  }
-  header h1 {
-    margin: 0 auto;
-    font-size: 1.4rem;
-    font-weight: bold;
-  }
-
-  /* 유저 정보 */
-  .user-info {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    margin-top: 10px;
-    margin-right: -18px;
-  }
-  .user-info img {
-    width: 20px !important;
-    height: 20px !important;
-    margin-right: -3px !important;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  .user-info span {
-    font-size: 0.8rem !important;
-    margin-right: -5px !important;
-  }
-  .user-info button {
-    padding: 4px 8px;
-    font-size: 0.7rem;
-  }
-
-  /* 네비게이션 */
-  nav.nav {
-    margin-top: -10px !important;
-    margin: 0.5px !important;
-  }
-  nav.nav button {
-    margin: 1px !important;
-    margin-right: 0.001px !important;
-    padding: 9px 14px !important;
-  }
- 
-
-  /* 상담창 */
-  #chat {
-    height: 200px;
-    font-size: 0.9rem;
-    margin-top: 5px !important;
-  }
-
-  /* 입력창과 전송 버튼 */
-  #input {
-    font-size: 0.9rem;
-    padding: 6px;
-  }
-
-  #sendBtn {
-    padding: 12px 12px !important;
-    font-size: 0.9rem;
-  }
-
-  /* 상담 모달 버튼 */
-  #resolve-btn {
-    background: none;
-    border: none;
-    color: #999;
-    font-size: 14px;
-    cursor: pointer;
-    text-align: left;
-    width: 100%;
-    max-width: 700px;
-    margin-top: 3px !important;
-  }
-
-  /* 쓰레기통 */
-  #trash-container {
-    text-align: center;
-    margin-top: 18px !important;
-  }
-
-  /* 정원 버튼 */
-  #plantButton, #waterButton {
-    font-size: 1.2rem;
-    padding: 8px 12px !important;
-    margin: 4px;
-    margin-top: -5px;
-    margin-bottom: -10px !important;
-  }
-
-  /* 상담 모달 내용 */
-  .modal-content {
-    font-size: 0.9rem;
-    padding: 12px;
-  }
-
-  /* 플랜트 아이콘 */
-  .plant {
-    font-size: 2rem;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-  }
-
-  /* 수확 개수 상태창 */
-  #harvestCountStatus {
-    font-size: 13px !important;
-    padding: 10px 8px !important;
-  }
-}
-
-@keyframes pop {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); }
-}
-
 /* ----------------- 변수 ----------------- */
 :root {
+  /* --header-height, --nav-height 전역 변수 설정. */
+  /* 헤더와 네비게이션의 높이를 지정해 화면의 여백 계산에 사용. */
   --header-height: 80px;
   --nav-height: 60px;
 }
@@ -149,10 +10,13 @@
 *,
 *::before,
 *::after {
+  /* 모든 요소에 box-sizing을 border-box로 설정. */
+  /* padding과 border가 요소의 너비와 높이에 포함되도록 해 레이아웃 계산을 쉽게 함. */
   box-sizing: border-box;
 }
 
 html, body {
+  /* 기본 여백과 패딩 제거 및 폰트, 배경색, 글자색 설정. */
   margin: 0;
   padding: 0;
   font-family: 'Noto Sans KR', sans-serif;
@@ -166,6 +30,8 @@ html, body {
 .user-info button,
 .send-btn,
 .garden-btn {
+  /* 다양한 버튼에 공통으로 적용되는 스타일. */
+  /* 테두리 없음, 둥근 모서리, 포인터 커서, 폰트 굵기, 부드러운 전환 효과를 적용. */
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -176,25 +42,30 @@ html, body {
 /* === disabled 상태 공통 === */
 button:disabled,
 .garden-btn:disabled {
-  background: #c0c0c0 !important;   /* 회색 배경 */
+  /* disabled 상태의 버튼에 적용되는 스타일. */
+  /* 배경, 테두리, 글자색을 회색 계열로 바꾸고, 커서를 not-allowed로 변경해 클릭 불가 상태를 시각적으로 보여줌. */
+  background: #c0c0c0 !important;
   border: 2px solid #a0a0a0 !important;
-  color: #eee !important;           /* 글씨도 연하게 */
+  color: #eee !important;
   cursor: not-allowed !important;
   box-shadow: none !important;
   transform: none !important;
   opacity: 0.7;
 }
-
 /* ----------------- 로그인 화면 ----------------- */
 .login-wrapper {
+  /* 로그인 페이지 전체를 감싸는 컨테이너. */
+  /* Flexbox를 이용해 자식 요소(.login-box)를 화면 정중앙에 배치. */
+  min-height: 100vh;
+  background: #d9d9da;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: #d9d9da;
 }
 
 .login-box {
+  /* 로그인 폼 박스 스타일. */
+  /* 배경색, 패딩, 둥근 모서리, 그림자, 너비를 지정. */
   background: white;
   padding: 50px 40px;
   border-radius: 16px;
@@ -204,36 +75,43 @@ button:disabled,
 }
 
 .subtitle {
+  /* 부제 스타일. */
   color: #666;
   font-size: 15px;
   margin-bottom: 25px;
 }
 
 .google-btn {
+  /* 구글 로그인 버튼 스타일. */
+  /* Flexbox를 이용해 아이콘과 텍스트를 중앙에 정렬. */
+  background: #2d8fe0;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
   padding: 10px 5px;
   width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 15px;
-  color: white;
-  background: #2d8fe0;
 }
 
 .google-btn:hover {
+  /* 호버 시 버튼을 살짝 위로 올리고 그림자 효과를 추가. */
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 .google-btn span {
+  /* 텍스트와 아이콘 간의 간격 조정. */
   margin-right: 12px;
 }
 
 /* ----------------- 화면 컨테이너 ----------------- */
 #mainScreen,
 #gardenScreen{
+  /* 메인 화면과 정원 화면의 공통 컨테이너. */
+  /* 헤더와 네비게이션 높이를 고려해 상단 패딩을 주고, 최소 높이와 좌우 패딩을 지정. */
   padding-top: calc(var(--header-height) + var(--nav-height));
   min-height: 100vh;
   background: #f0f0f0; 
@@ -241,9 +119,10 @@ button:disabled,
   padding-right: 80px;
 }
 
-/* ===== 헤더 ===== */
+/* -------------- 헤더 -------------- */
 header {
-  display: none;
+  /* 헤더 스타일. */
+  /* 화면 상단에 고정, 배경색, 테두리, 그림자 등을 설정. */
   position: fixed;
   top: 0;
   left: 0;
@@ -259,8 +138,10 @@ header {
   font-weight: bold;
 }
 
-/* =========== 네비게이션 버튼 =========== */
+/* -------------- 네비게이션 버튼 -------------- */
 nav.nav {
+  /* 네비게이션 바 스타일. */
+  /* 헤더 아래에 고정, 버튼들을 중앙에 배치. */
   position: fixed;
   top: 80px;
   left: 0;
@@ -275,6 +156,7 @@ nav.nav {
 }
 
 nav.nav button {
+  /* 네비게이션 버튼 스타일. */
   background: #f2f2f7;
   color: #333;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -288,14 +170,16 @@ nav.nav button {
 }
 
 nav.nav button:hover {
+  /* 호버 시 버튼을 살짝 위로 올리고 테두리와 그림자 효과를 변경. */
   transform: translateY(-2px);
   border-color: #a9a5a5;
   box-shadow: inset 1px 1px 8px rgba(0,0,0,0.2);
 }
 
-
-/* ========= 유저 정보 및 로그아웃 버튼 ========= */
+/* --------------- 유저 정보 및 로그아웃 버튼 -------------- */
 .user-info {
+  /* 유저 정보 영역 스타일. */
+  /* 우측 상단에 고정, 프로필 이미지와 닉네임, 로그아웃 버튼을 포함. */
   position: fixed;
   top: 16px;
   right: 24px;
@@ -306,6 +190,7 @@ nav.nav button:hover {
 }
 
 .user-info img {
+  /* 유저 프로필 이미지 스타일. */
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -313,11 +198,13 @@ nav.nav button:hover {
 }
 
 .user-info span {
+  /* 유저 닉네임 텍스트 스타일. */
   font-weight: 600;
   font-size: 1rem;
 }
 
 .user-info button {
+  /* 유저 정보 영역 내의 로그아웃 버튼 스타일. */
   padding: 6px 2px;
   border-radius: 20px;
   background:  #f8f8f8;
@@ -329,15 +216,18 @@ nav.nav button:hover {
 }
 
 .user-info button:hover {
-   background: #f0f0f0;
+  /* 호버 시 배경색 변경. */
+  background: #f0f0f0;
 }
 
 .user-info button:active {
-   background: #f0f0f0;
+  /* 클릭 시 배경색 변경. */
+  background: #f0f0f0;
 }
 
-/* --------- 버튼, textarea 공통 --------- */
+/* -------------- 버튼, textarea 공통 -------------- */
 button {
+  /* 기본 버튼 스타일. */
   cursor: pointer;
   border: none;
   border-radius: 8px;
@@ -346,6 +236,7 @@ button {
 }
 
 textarea {
+  /* 기본 텍스트에리어 스타일. */
   border-radius: 8px;
   border: 1px solid #ccc;
   padding: 8px;
@@ -353,9 +244,11 @@ textarea {
   resize: none;
   font-size: 16px;
 }
-
 /* ----------------- 채팅창 ----------------- */
 #chat {
+  /* 채팅창 컨테이너 스타일. */
+  /* 배경, 테두리, 패딩, 그림자 등을 설정하고, 스크롤 가능하게 함. */
+  /* display: flex와 flex-direction: column을 사용해 메시지를 세로로 쌓음. */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -379,6 +272,8 @@ textarea {
 }
 
 #resolve-btn {
+  /* 문제 해결 버튼 스타일. */
+  /* 채팅창 아래에 위치. */
   display: block;
   width: 100%;
   max-width: 700px;
@@ -392,10 +287,13 @@ textarea {
 }
 
 #resolve-btn:hover {
+  /* 호버 시 글자색 변경. */
   color: #2a6fc5;
 }
 
 .message {
+  /* 채팅 메시지 공통 스타일. */
+  /* 둥근 모서리, 패딩, 그림자 등을 지정. */
   display: inline-block;
   margin: 8px 0;
   padding: 8px 12px;
@@ -409,17 +307,21 @@ textarea {
 }
 
 .message.user {
+  /* 유저 메시지 스타일 (채팅창 오른쪽에 배치). */
   background-color: #d0e7ff;
   margin-left: auto;
 }
 
 .message.bot {
+  /* 봇 메시지 스타일 (채팅창 왼쪽에 배치). */
   background-color: #e5e5ea;
   margin-right: auto;
 }
 
 /* ----------------- 입력창 ----------------- */
 .input-container {
+  /* 입력창과 전송 버튼을 감싸는 컨테이너. */
+  /* Flexbox를 사용해 가로로 나란히 배치. */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -432,6 +334,7 @@ textarea {
 }
 
 #input {
+  /* 텍스트 입력창 스타일. */
   flex: 1;
   min-width: 200px;
   height: 50px;
@@ -443,11 +346,13 @@ textarea {
 }
 
 #input:focus {
+  /* 입력창 포커스 시 테두리와 그림자 효과를 변경. */
   border-color: #6fa8ff;
   box-shadow: inset 1px 1px 8px rgba(0,0,0,0.2);
 }
 
 button.send-btn {
+  /* 전송 버튼 스타일. */
   padding: 0 25px;
   height: 50px;
   background:  #2a6fc5;
@@ -459,17 +364,21 @@ button.send-btn {
 }
 
 button.send-btn:hover {
+  /* 호버 시 버튼을 살짝 위로 올리고 그림자 효과를 강화. */
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(58,141,222,0.6);
 }
 
 button.send-btn:active {
+  /* 클릭 시 버튼을 살짝 아래로 내리고 그림자 효과를 약화. */
   transform: translateY(1px);
   box-shadow: 0 4px 12px rgba(58,141,222,0.4);
 }
 
 /* ----------------- 모달 ----------------- */
 .modal {
+  /* 모달창 전체를 감싸는 오버레이. */
+  /* 화면 중앙에 배치하고 반투명 검은색 배경을 적용. */
   position: fixed;
   top: 0;
   left: 0;
@@ -483,6 +392,8 @@ button.send-btn:active {
 }
 
 .modal-content {
+  /* 모달 내용 박스. */
+  /* 배경, 패딩, 둥근 모서리 등을 설정. */
   background-color: white;
   padding: 20px 30px;
   border-radius: 16px;
@@ -491,6 +402,8 @@ button.send-btn:active {
 }
 
 .mood-options {
+  /* 감정 선택 버튼들을 감싸는 컨테이너. */
+  /* Flexbox를 사용해 버튼들을 유연하게 배치. */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -500,14 +413,16 @@ button.send-btn:active {
 
 /* ----------------- 포스트잇 ----------------- */
 .paper {
+  /* 포스트잇 스타일. */
+  /* 절대 위치, 드래그 가능한 커서, 크기, 배경색, 줄무늬 효과, 그림자 등을 설정. */
   position: absolute;
   cursor: grab;
   width: 200px;
   height: 80px;
-  background-color: #fff; /* 흰색 배경 */
-  background-image: 
-    linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px); /* 줄 */
-  background-size: 100% 20px; /* 줄 간격 20px */
+  background-color: #fff;
+  background-image:
+    linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 100% 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   border-radius: 16px;
   display: flex;
@@ -521,25 +436,32 @@ button.send-btn:active {
 }
 
 @keyframes crumple3d {
+  /* 3D 종이 구김 애니메이션 (사용되지 않음). */
+  /* 요소의 회전과 크기를 조절해 3D 구겨지는 효과를 만듦. */
   0%   { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1); }
   25%  { transform: rotateY(10deg) rotateX(-10deg) rotateZ(5deg) scale(0.95); }
   50%  { transform: rotateY(-15deg) rotateX(15deg) rotateZ(-5deg) scale(0.9); }
   75%  { transform: rotateY(10deg) rotateX(-10deg) rotateZ(5deg) scale(0.85); }
   100% { transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(0.8); }
 }
+
 .paper.crumple {
+  /* 종이 구겨짐 상태의 스타일 (애니메이션과 함께 사용됨). */
   transform: rotateX(30deg) rotateY(20deg) rotateZ(10deg) scale(0.7);
   box-shadow: 3px 3px 15px rgba(0,0,0,0.4);
 }
 
 /* ----------------- 쓰레기통 ----------------- */
 #trash-container {
+  /* 쓰레기통을 감싸는 컨테이너. */
   text-align: center;
   margin: 5px 0 25px 0;
   margin-top: 0.005px;
 }
 
 #trash {
+  /* 쓰레기통 스타일. */
+  /* 테두리, 배경, 폰트 크기 등을 설정. */
   z-index: 30;
   font-size: 30px;
   padding: 10px 30px;
@@ -550,6 +472,7 @@ button.send-btn:active {
 }
 
 #trash.drag-over {
+  /* 드래그 상태일 때 쓰레기통이 커지고 그림자 효과를 변경. */
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
@@ -557,10 +480,13 @@ button.send-btn:active {
 /* ---------------- 종이 구기기 ---------------- */
 /* 종이 구김 애니메이션 */
 .paper.crumple {
+  /* 종이 구겨짐 애니메이션을 적용. */
   animation: crumple 0.6s forwards;
 }
 
 @keyframes crumple {
+  /* 종이가 구겨지는 2D 애니메이션. */
+  /* 회전, 크기, 기울기를 조절해 종이가 구겨지는 효과를 만듦. */
   0%   { transform: rotate(0deg) scale(1); }
   25%  { transform: rotate(-10deg) scale(0.95) skew(2deg, 2deg); }
   50%  { transform: rotate(10deg) scale(0.9) skew(-2deg, -2deg); }
@@ -570,18 +496,22 @@ button.send-btn:active {
 
 /* 쓰레기통 이동 애니메이션 */
 .paper.fly-to-trash {
+  /* 종이가 쓰레기통으로 이동할 때의 애니메이션. */
+  /* 투명도를 0으로 만들어 서서히 사라지게 함. */
   transition: transform 0.6s ease-in, opacity 0.6s ease-in;
   opacity: 0;
 }
 
 
-/*--------------- 정원 가꾸기 --------------------*/
+/* ============== 텃밭 가꾸기 ============== */
 #gardenIntroModal .modal-content p {
+  /* 정원 소개 모달 내의 문단 스타일. */
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
 .garden-page {
+  /* 정원 페이지 전체 컨테이너. */
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -590,6 +520,7 @@ button.send-btn:active {
 }
 
 .garden-main {
+  /* 정원 메인 컨텐츠 컨테이너. */
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -599,6 +530,8 @@ button.send-btn:active {
 }
 
 .garden-box {
+  /* 정원 배경이 되는 박스 스타일. */
+  /* 채팅창과 유사하며, 배경 이미지를 사용. */
   position: relative;
   border-radius: 15px;
   border: 2px solid #c0c0c0;
@@ -622,6 +555,8 @@ button.send-btn:active {
 }
 
 .garden-status {
+  /* 정원 상태 표시 텍스트 박스. */
+  /* 배경색, 패딩, 둥근 모서리, 폰트 굵기 등을 설정. */
   position: absolute;
   top: 10px;
   left: 50%;
@@ -633,6 +568,7 @@ button.send-btn:active {
 }
 
 .garden-controls {
+  /* 정원 제어 버튼들을 감싸는 컨테이너. */
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -641,6 +577,8 @@ button.send-btn:active {
 
 /* 심기 버튼 */
 #plantButton {
+  /* 식물 심기 버튼 스타일. */
+  /* 그라데이션 배경, 테두리, 그림자, 전환 효과 등을 적용. */
   padding: 10px 20px;
   font-size: 16px;
   border: 2px solid #8c6239;
@@ -653,18 +591,22 @@ button.send-btn:active {
 }
 
 #plantButton:hover:enabled {
+  /* 호버 시 그라데이션 변경, 그림자 강화, 살짝 위로 이동. */
   background: linear-gradient(135deg, #c49b6c, #9c7045);
   box-shadow: 0 8px 15px rgba(0,0,0,0.4);
   transform: translateY(-2px);
 }
 
 #plantButton:active:enabled {
+  /* 클릭 시 그림자 약화, 살짝 아래로 이동. */
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transform: translateY(1px);
 }
 
 /* 물주기 버튼 */
 #waterButton {
+  /* 물주기 버튼 스타일. */
+  /* 심기 버튼과 유사한 스타일. */
   padding: 10px 20px;
   font-size: 16px;
   border: 2px solid #1e88e5;
@@ -677,17 +619,20 @@ button.send-btn:active {
 }
 
 #waterButton:hover:enabled {
+  /* 호버 시 그라데이션 변경, 그림자 강화, 살짝 위로 이동. */
   background: linear-gradient(135deg, #6bb7f9, #3b9df0);
   box-shadow: 0 8px 15px rgba(0,0,0,0.4);
   transform: translateY(-2px);
 }
 
 #waterButton:active:enabled {
+  /* 클릭 시 그림자 약화, 살짝 아래로 이동. */
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transform: translateY(1px);
 }
 
 .plant-status {
+  /* 식물 상태 텍스트 스타일. */
   font-weight: bold;
   font-size: 1rem;
   margin-top: 8px;
@@ -696,6 +641,7 @@ button.send-btn:active {
 
 /* 정원 상태 박스 */
 #plantStatus {
+  /* 식물 상태를 표시하는 말풍선 모양의 박스. */
   display: inline-block;
   padding: 10px 15px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -707,7 +653,9 @@ button.send-btn:active {
   background-color: #ffffffcc;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 #plantStatus::after {
+  /* 말풍선의 뾰족한 부분 스타일. */
   content: '';
   position: absolute;
   bottom: 0;
@@ -721,21 +669,23 @@ button.send-btn:active {
   margin-bottom: -10px;
 }
 
-/* ==================== 수확 개수 상태창 ==================== */
+/* -------------- 수확 개수 상태창 --------------- */
 #harvestCountStatus {
+  /* 수확 개수를 표시하는 말풍선 모양의 박스. */
+  /* 화면 상단 중앙에 위치하도록 함. */
   padding: 10px 15px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  position: absolute; 
-  top: 5%;          /* 위치 조정 */
+  position: absolute;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1000;      /* 충분히 위로 */
+  z-index: 1000;
   background-color: #ffffffcc;
   border-radius: 12px;
   border: 2px dashed #888;
   font-size: 16px;
   color: #333;
-  display: block;   
+  display: block;
 }
 
 
@@ -743,6 +693,8 @@ button.send-btn:active {
 
 /* 계란 깨기 화면 */
 #eggbreakScreen {
+  /* 계란 깨기 화면 컨테이너. */
+  /* 다른 화면과 마찬가지로 헤더/네비게이션 높이를 고려해 패딩을 줌. */
   padding-top: calc(var(--header-height) + var(--nav-height));
   min-height: 100vh;
   background: #f8f8f8;
@@ -751,29 +703,33 @@ button.send-btn:active {
 }
 
 .egg-box {
-    position: relative;
-    border-radius: 15px;
-    border: 2px solid #c0c0c0;
-    padding: 15px;
-    width: 100%;
-    max-width: 700px;
-    aspect-ratio: 16 / 9;
-    overflow: hidden; /* 스크롤 안 생기게 */
-    background: url('../images/egghouse.jpg') center/cover no-repeat;
-    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 30px auto 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+  /* 계란 깨기 게임 영역 박스. */
+  /* 배경 이미지, 테두리, 그림자 등을 설정. */
+  position: relative;
+  border-radius: 15px;
+  border: 2px solid #c0c0c0;
+  padding: 15px;
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: url('../images/egghouse.jpg') center/cover no-repeat;
+  box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 30px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 #start-game-btn {
+  /* 게임 시작 버튼 스타일. */
+  /* 주황색 계열의 그라데이션, 그림자, 전환 효과를 적용. */
   padding: 10px 20px;
   font-size: 16px;
-  border: 2px solid #e67e22; /* 중간 오렌지 */
+  border: 2px solid #e67e22;
   border-radius: 12px;
-  background: linear-gradient(135deg, #f0a05d, #e67e22); /* 연한 오렌지 → 진한 오렌지 */
+  background: linear-gradient(135deg, #f0a05d, #e67e22);
   color: #fff;
   cursor: pointer;
   box-shadow: 0 5px 10px rgba(0,0,0,0.3);
@@ -784,91 +740,104 @@ button.send-btn:active {
 }
 
 #start-game-btn:hover:enabled {
+  /* 호버 시 그라데이션 변경, 그림자 강화, 살짝 위로 이동. */
   background: linear-gradient(135deg, #f2b57f, #eb8130);
   box-shadow: 0 8px 15px rgba(0,0,0,0.4);
   transform: translateY(-2px);
 }
 
 #start-game-btn:active:enabled {
+  /* 클릭 시 그림자 약화, 살짝 아래로 이동. */
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   transform: translateY(1px);
 }
 
 /* 선택 화면 */
 #selection-screen {
-    display: flex;
-    flex-direction: column; /* 자식 요소들을 세로로 쌓기 */
-    justify-content: center; /* 전체 요소를 세로 가운데에 놓기 */
-    align-items: center; /* 전체 요소를 가로 가운데에 놓기 */
-    margin-top: 100px;
+  /* 계란/도구 선택 화면 컨테이너. */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
 }
 
 .selection-top-section {
-    display: flex;
-    flex-direction: row; /* 계란, 도구 그룹을 가로로 나란히 정렬 */
-    justify-content: center; /* 그룹들을 가로 가운데에 놓기 */
-    align-items: flex-start; /* 그룹들의 내용을 위쪽에 정렬 */
-    gap: 50px; /* 그룹 사이 간격 (원하는 대로 조절) */
-    margin-bottom: 20px; /* 그룹과 버튼 사이 간격 */
+  /* 계란 선택과 도구 선택 그룹을 묶는 컨테이너. */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  margin-bottom: 20px;
 }
 
 #selection-screen h4 {
-    margin: 0;
+  /* 선택 화면의 제목 폰트 스타일. */
+  margin: 0;
 }
 
 .selection-group {
-    display: flex;
-    flex-direction: column; /* h4와 div를 세로로 쌓기 */
-    align-items: center; /* h4와 div를 가로 가운데에 놓기 */
+  /* 계란 또는 도구 선택 그룹. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* 계란/도구 선택 영역의 공통 레이아웃 */
 #egg-selection,
 #tool-selection {
-    display: flex;
-    justify-content: center;
-    align-items: center; /* 수직 정렬을 위해 추가 */
-    gap: 5px;
-    margin: 0;
+  /* 계란/도구 아이템들을 감싸는 컨테이너. */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
 }
 
 /* 화살표 버튼 스타일 */
 .nav-btn {
-    background: none;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 7px;
-    transition: color 0.2s;
+  /* 선택 항목을 넘기는 화살표 버튼 스타일. */
+  background: none;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 7px;
+  transition: color 0.2s;
 }
+
 /* 선택 가능한 아이템의 공통 스타일 (이제는 단일 이미지에만 적용) */
 .selectable-item {
-    cursor: pointer;
-    border: 3px solid transparent;
-    border-radius: 10px;
-    transition: transform 0.2s, border-color 0.2s;
-    width: 150px; /* 이미지 너비 고정 */
-    height: 150px; /* 이미지 높이 고정 */
-    object-fit: contain; /* 비율을 유지하면서 박스에 맞게 조절 */
+  /* 선택 가능한 계란/도구 이미지 스타일. */
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  transition: transform 0.2s, border-color 0.2s;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
 
 .selectable-item.selected {
-    border: 2px solid #638ae4; 
-    box-shadow: 0 0 3px #638ae4, 0 0 6px #638ae4; 
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 2px solid #007AFF; 
+  box-shadow: 0 0 3px #007AFF, 0 0 6px #007AFF;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 /* 마우스 오버 시 효과 */
 .selectable-item:hover {
-    transform: scale(1.05);
+  /* 호버 시 아이템을 살짝 확대. */
+  transform: scale(1.05);
 }
 
 /* 게임 진행 화면 */
 #game-screen {
-    text-align: center;
+  /* 게임 진행 중인 화면 컨테이너. */
+  text-align: center;
 }
 
 #counter {
+  /* 클릭 횟수 카운터 스타일. */
   display: inline-block;
   padding: 10px 20px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -884,47 +853,57 @@ button.send-btn:active {
 }
 
 #egg-container {
-    position: relative;
-    width: 250px;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    margin-top: 3px auto;
+  /* 계란 이미지를 감싸는 컨테이너. */
+  position: relative;
+  width: 250px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 3px auto;
 }
 
 #egg-image {
-    max-width: 100%;
-    height: auto;
-    width: 100%;
-    cursor: pointer;
-    transition: transform 0.1s;
+  /* 계란 이미지 스타일. */
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+  cursor: pointer;
+  transition: transform 0.1s;
 }
 
 /* 계란 클릭 시 살짝 커지는 효과 */
 #egg-image:active {
-    transform: scale(1.05);
+  /* 클릭 시 살짝 확대. */
+  transform: scale(1.05);
 }
 
 #tool-image {
-    position: absolute;
-    width: 150px;
-    opacity: 0;
-    transform: translateY(-100px);
-    transition: transform 0.1s, opacity 0.1s;
+  /* 도구 이미지 스타일. */
+  /* 처음에는 숨겨져 있다가 애니메이션으로 나타나게 함. */
+  position: absolute;
+  width: 150px;
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: transform 0.1s, opacity 0.1s;
 }
 
 .tool-animation {
-    animation: hit 0.2s forwards;
+  /* 도구 이미지에 적용되는 애니메이션. */
+  animation: hit 0.2s forwards;
 }
 
 @keyframes hit {
-    0%   { transform: translateY(-50px) scale(0.8); opacity: 1; }
-    50%  { transform: translateY(0px)  scale(1.1); opacity: 1; }
-    100% { transform: translateY(0px)  scale(1);   opacity: 0; }
+  /* 도구가 계란을 '치는' 듯한 애니메이션. */
+  /* 위에서 내려와 살짝 커졌다가 다시 제자리로 돌아가면서 투명해짐. */
+  0%   { transform: translateY(-50px) scale(0.8); opacity: 1; }
+  50%  { transform: translateY(0px)  scale(1.1); opacity: 1; }
+  100% { transform: translateY(0px)  scale(1);   opacity: 0; }
 }
+
 #egg-status {
+  /* 계란 상태를 표시하는 말풍선 박스. */
   display: inline-block;
   padding: 10px 15px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
@@ -936,7 +915,9 @@ button.send-btn:active {
   background-color: #ffffffcc;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 #egg-Status::after {
+  /* 말풍선의 뾰족한 부분 스타일. */
   content: '';
   position: absolute;
   bottom: 0;
@@ -949,13 +930,21 @@ button.send-btn:active {
   margin-left: -10px;
   margin-bottom: -10px;
 }
+
 #egg-control {
+  /* 계란 깨기 게임 제어 버튼 컨테이너. */
   display: flex;
-  flex-direction: column;  /* 위에서 아래로 정렬 */
-  align-items: center;     /* 중앙 정렬 */
-  gap: 10px;               /* status와 버튼 간격 */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   width: 100%;
   margin-top: 0.5px;
 }
 
-
+@keyframes pop {
+  /* 'pop' 애니메이션 키프레임. */
+  /* 요소가 0%에서 시작해 50%에서 1.2배로 커졌다가 100%에서 원래 크기로 돌아오면서 나타나는 효과를 만듦. */
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
