@@ -289,13 +289,10 @@ nav.nav button {
 
 nav.nav button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-  background: #f0f0f0;
+  border-color: #6fa8ff;
+  box-shadow: inset 1px 1px 8px rgba(0,0,0,0.2);
 }
 
-nav.nav button:active {
-  background: #f0f0f0;
-}
 
 /* ========= 유저 정보 및 로그아웃 버튼 ========= */
 .user-info {
@@ -324,9 +321,8 @@ nav.nav button:active {
   padding: 6px 2px;
   border-radius: 20px;
   background:  #f8f8f8;
-  padding: 5px 8px;
-  color: #999;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  padding: 5px 10px;
+  color: #555454;
   border: 2px solid  #2a6fc5;
   font-weight: 400;
   font-size: 1rem;
@@ -761,11 +757,13 @@ button.send-btn:active {
     padding: 15px;
     width: 100%;
     max-width: 700px;
-    height: 70vh;
+    height: auto;
     overflow-y: auto;
     background: url('../images/egghouse.jpg');
     background-size: cover;
     background-position: center;
+    position:relative;
+    aspect-ratio: 16 /9;
     background-repeat: no-repeat;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
     margin: 20px auto 0 auto;
@@ -788,6 +786,7 @@ button.send-btn:active {
   transition: all 0.2s;
   margin-top: 10px;
   align-self: center;
+  margin-top: 20px;
 }
 
 #start-game-btn:hover:enabled {
@@ -892,19 +891,23 @@ button.send-btn:active {
   border-radius: 12px;
   background-color: #ffffffcc;
   transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 5px;
 }
 
 #egg-container {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    margin-top: 3px auto;
 }
 
 #egg-image {
+    max-width: 100%;
+    height: auto;
     width: 100%;
     cursor: pointer;
     transition: transform 0.1s;
