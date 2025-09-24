@@ -765,65 +765,6 @@ button.send-btn:active {
 
 /* ======================= 민서 - 계란깨기 ====================*/
 /* ================= 계란 깨기 게임 스타일 ================= */
-
-/* 게임 시작 모달 */
-.modal {
-    display: flex;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-#start-btn{
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
-    color: white;
-    margin-top: auto;
-}
-
-#start-game-btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: 2px solid #e67e22; /* 중간 오렌지 */
-  border-radius: 12px;
-  background: linear-gradient(135deg, #f0a05d, #e67e22); /* 연한 오렌지 → 진한 오렌지 */
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-  transition: all 0.2s;
-  margin-top : px;
-}
-
-#start-game-btn:hover:enabled {
-  background: linear-gradient(135deg, #f2b57f, #eb8130);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
-  transform: translateY(-2px);
-}
-
-#start-game-btn:active:enabled {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transform: translateY(1px);
-}
-
 .egg-box {
     position: relative;
     border-radius: 15px;
@@ -839,10 +780,36 @@ button.send-btn:active {
     background-repeat: no-repeat;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
     margin: 20px auto 0 auto;
+
     display: flex;
     flex-direction: column; /* 세로로 정렬 */
-    justify-content: space-between; /* 그룹과 버튼을 맨 위, 아래로 배치 */
+    justify-content: flex-start;
     align-items: center; /* 전체 요소를 가운데로 */
+}
+
+#start-game-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #e67e22; /* 중간 오렌지 */
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f0a05d, #e67e22); /* 연한 오렌지 → 진한 오렌지 */
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+  margin-top: 10px;
+  align-self: center;
+}
+
+#start-game-btn:hover:enabled {
+  background: linear-gradient(135deg, #f2b57f, #eb8130);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+}
+
+#start-game-btn:active:enabled {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(1px);
 }
 
 /* 선택 화면 */

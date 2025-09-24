@@ -558,6 +558,7 @@ const eggbreakBtn = document.getElementById("eggbreakBtn");
 const eggbreakScreen = document.getElementById("eggbreakScreen");
 const introModal = document.getElementById("intro-modal");
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const gameContainer = document.getElementById('game-container');
     const selectionScreen = document.getElementById('selection-screen');
@@ -713,6 +714,8 @@ eggbreakBtn.addEventListener("click", () => {
         gameScreen.style.display = 'block';
         eggImage.src = eggs[selectedEggIndex].src;
         toolImage.src = tools[selectedToolIndex].src;
+        // 게임 시작하면 버튼 안 보이게 숨기기
+        startGameBtn.style.display = 'none';
     });
 
     // 5. 계란 클릭 시 이벤트
