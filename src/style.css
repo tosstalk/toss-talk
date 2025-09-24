@@ -282,7 +282,7 @@ nav.nav button {
   border-radius: 12px;
   padding: 10px 20px;
   margin: 0 20px;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
 }
@@ -757,21 +757,15 @@ button.send-btn:active {
     padding: 15px;
     width: 100%;
     max-width: 700px;
-    height: auto;
-    overflow-y: auto;
-    background: url('../images/egghouse.jpg');
-    background-size: cover;
-    background-position: center;
-    position:relative;
-    aspect-ratio: 16 /9;
-    background-repeat: no-repeat;
+    aspect-ratio: 16 / 9;
+    overflow: hidden; /* 스크롤 안 생기게 */
+    background: url('../images/egghouse.jpg') center/cover no-repeat;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 20px auto 0 auto;
-    margin-top: 30px;
+    margin: 30px auto 0 auto;
     display: flex;
-    flex-direction: column; /* 세로로 정렬 */
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: center; /* 전체 요소를 가운데로 */
+    align-items: center;
 }
 
 #start-game-btn {
@@ -841,12 +835,10 @@ button.send-btn:active {
 /* 화살표 버튼 스타일 */
 .nav-btn {
     background: none;
-    border: none;
     font-size: 2rem;
     font-weight: bold;
-    color: #e67e22;
     cursor: pointer;
-    padding: 10px;
+    padding: 7px;
     transition: color 0.2s;
 }
 /* 선택 가능한 아이템의 공통 스타일 (이제는 단일 이미지에만 적용) */
@@ -862,7 +854,7 @@ button.send-btn:active {
 
 /* 선택된 아이템에 적용되는 스타일 */
 .selectable-item.selected {
-    border-color: #e67e22;
+    border-color: #638ae4;
 }
 
 /* 마우스 오버 시 효과 */
@@ -877,7 +869,7 @@ button.send-btn:active {
 
 #counter {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 10px 20px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.2);
   font-size: 16px;
   color: #333;
@@ -887,6 +879,7 @@ button.send-btn:active {
   background-color: #ffffffcc;
   transition: transform 0.2s, box-shadow 0.2s;
   margin-top: 5px;
+  margin-bottom: 20px;
 }
 
 #egg-container {
