@@ -133,41 +133,6 @@
   }
 }
 
-/* ----------------- PC 대응 ----------------- */
-@media (min-width: 768px) {
-  #gardenContainer {
-    background-image: url('../images/garden.background.pc.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    height: auto; 
-    margin-top: 50px !important;
-  }
-
-#chat{
-  background-size: cover;
-    background-position: center;
-    position: relative;
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    height: auto; 
-    margin-top: 50px !important;
-}
-#resolve-btn {
-  width: 100%;
-  max-width: 700px; /* 동일 폭 */
-  margin: 10px auto 0; /* 좌우 중앙 정렬 */
-  display: block;
-  text-align: left; /* 버튼 글씨는 왼쪽 */
-}
-
-nav.nav {
-  margin-top: 20px !important;
-}
-}
-
 @keyframes pop {
   0% { transform: scale(0); opacity: 0; }
   50% { transform: scale(1.2); opacity: 1; }
@@ -226,7 +191,7 @@ button:disabled,
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #d0f0c0, #a8edea, #fff9b0);
+  background: #f8f8f8; /* 연한 회색 */
 }
 
 .login-box {
@@ -271,7 +236,7 @@ button:disabled,
 #gardenScreen{
   padding-top: calc(var(--header-height) + var(--nav-height));
   min-height: 100vh;
-  background: linear-gradient(135deg, #d0f0c0 0%, #a8edea 40%, #fddde6 100%);
+  background: #f0f0f0; 
   padding-left: 80px;
   padding-right: 80px;
 }
@@ -284,19 +249,14 @@ header {
   left: 0;
   width: 100%;
   z-index: 50;
-  background: linear-gradient(
-    135deg, 
-    #cbe3b7 0%, 
-    #ffd6e0 25%, 
-    #c0d4f0 50%, 
-    #b2e0d5 75%, 
-    #f9f9d0 100%);
-  color: #444;
+  background-color: #f8f8f8;
+  color: #333;
+  border-bottom: 1px solid #d1d1d6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   text-align: center;
   padding: 20px;
   font-size: 1.8rem;
   font-weight: bold;
-  border-bottom: 2px solid rgba(0,0,0,0.1);
 }
 
 /* =========== 네비게이션 버튼 =========== */
@@ -311,24 +271,26 @@ nav.nav {
   gap: 30px;
   padding: 10px 0;
   margin: 15px 0;
+  margin-top: 15px;
 }
 
 nav.nav button {
-  background: #f9f9f9;
+  background: #f2f2f7;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  border: 2px solid #c8c7c7;
   border-radius: 12px;
   padding: 10px 20px;
   margin: 0 20px;
   font-size: 0.85rem;
-  color: #444;
   font-weight: 600;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
 }
 
 nav.nav button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-  background: #fff;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  background: #f0f0f0;
 }
 
 nav.nav button:active {
@@ -359,19 +321,23 @@ nav.nav button:active {
 }
 
 .user-info button {
-  padding: 6px 14px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #a8edea, #89d4a3);
-  color: #fff;
-  font-weight: 600;
+  padding: 6px 2px;
+  border-radius: 20px;
+  background:  #f8f8f8;
+  padding: 5px 8px;
+  color: #999;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  border: 2px solid  #2a6fc5;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 .user-info button:hover {
-  background: linear-gradient(135deg, #fcb1b1, #f78ca0);
+   background: #f0f0f0;
 }
 
 .user-info button:active {
-  background: linear-gradient(135deg, #f78ca0, #f9748f);
+   background: #f0f0f0;
 }
 
 /* --------- 버튼, textarea 공통 --------- */
@@ -394,39 +360,43 @@ textarea {
 
 /* ----------------- 채팅창 ----------------- */
 #chat {
+  background-size: cover;
+  background-position: center;
   position: relative;
+  aspect-ratio: 16/9;
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  min-height: 300px;
+  max-height: 60vh;
   border-radius: 15px;
   border: 2px solid #c0c0c0;
   padding: 15px;
-  width: 100%;
-  max-width: 700px;
-  height: 50vh;
-  min-height: 300px;
-  max-height: 60vh;
   overflow-y: auto;
-  background-color: #ffffffee;
+  background-color: #ffffff;
   box-shadow: 2px 4px 15px rgba(0,0,0,0.1);
   margin: 20px auto 0;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
 #resolve-btn {
-  background: none;
-  border: none;
-  color: #999;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: left;
+  display: block;
   width: 100%;
   max-width: 700px;
   margin: 10px auto 0;
+  text-align: left;
+  padding-left: 15px;
+  color: #999;
+  font-size: 14px;
+  cursor: pointer;
   transition: color 0.2s;
 }
 
 #resolve-btn:hover {
-  color: #666;
+  color: #2a6fc5;
 }
 
 .message {
@@ -443,12 +413,12 @@ textarea {
 }
 
 .message.user {
-  background-color: #cce4ff;
+  background-color: #d0e7ff;
   margin-left: auto;
 }
 
 .message.bot {
-  background-color: #d4ffd4;
+  background-color: #e5e5ea;
   margin-right: auto;
 }
 
@@ -462,6 +432,7 @@ textarea {
   margin: 20px auto;
   width: 100%;
   max-width: 700px;
+  margin-top: 0.5px;
 }
 
 #input {
@@ -483,11 +454,7 @@ textarea {
 button.send-btn {
   padding: 0 25px;
   height: 50px;
-  background: linear-gradient(
-    135deg, 
-    #5f8de0, 
-    #2a6fc5
-    ); 
+  background:  #2a6fc5;
   border-radius: 25px;
   color: #fff;
   font-size: 16px;
@@ -572,13 +539,14 @@ button.send-btn:active {
 /* ----------------- 쓰레기통 ----------------- */
 #trash-container {
   text-align: center;
-  margin: 5px 0 30px 0;
+  margin: 5px 0 25px 0;
+  margin-top: 0.005px;
 }
 
 #trash {
   z-index: 30;
   font-size: 30px;
-  padding: 15px 30px;
+  padding: 10px 30px;
   border: 2px dashed #888;
   border-radius: 15px;
   background-color: #ffffffcc;
@@ -641,14 +609,17 @@ button.send-btn:active {
   padding: 15px;
   width: 100%;
   max-width: 700px;
-  height: 50vh;
+  height: auto;
   overflow-y: auto;
-  background: url('../images/garden.background.jpg');
+  background-image: url('../images/garden.background.pc.jpg');
   background-size: cover;
   background-position: center;
+  position: relative;
+  aspect-ratio: 16 / 9;
   background-repeat: no-repeat;
   box-shadow: 2px 4px 15px rgba(0,0,0,0.1);
   margin: 20px auto 0 auto;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -778,7 +749,7 @@ button.send-btn:active {
 #eggbreakScreen {
   padding-top: calc(var(--header-height) + var(--nav-height));
   min-height: 100vh;
-  background: linear-gradient(135deg, #d0f0c0 0%, #a8edea 40%, #fddde6 100%);
+  background: #f8f8f8;
   padding-left: 80px;
   padding-right: 80px;
 }
@@ -798,7 +769,7 @@ button.send-btn:active {
     background-repeat: no-repeat;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
     margin: 20px auto 0 auto;
-
+    margin-top: 30px;
     display: flex;
     flex-direction: column; /* 세로로 정렬 */
     justify-content: flex-start;
