@@ -651,6 +651,10 @@ function resetEggGame() {
     // 화면 초기화
     selectionScreen.style.display = 'block';
     gameScreen.style.display = 'none';
+    
+   // 버튼 초기화
+    startGameBtn.style.display = 'inline-block'; // 버튼 다시 보이게
+    startGameBtn.disabled = false;              // 버튼 활성화
 
     // 이미지 및 버튼 상태 초기화
     eggDisplay.src = eggs[0].src;
@@ -660,6 +664,10 @@ function resetEggGame() {
     // 카운터 및 메시지 초기화
     counterElement.textContent = '0';
     messageElement.textContent = '';
+   
+    // 선택 인덱스 초기화
+    selectedEggIndex = 0;
+    selectedToolIndex = 0;
 }
 
 
