@@ -551,7 +551,7 @@ waterButton.addEventListener("click", async()=>{
 });
 
 
-// ============ 민서 - 계란깨기 ===============
+// ============ 계란깨기 ===============
 
 // 요소 참조
 const eggbreakBtn = document.getElementById("eggbreakBtn");

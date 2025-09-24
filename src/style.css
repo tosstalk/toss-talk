@@ -191,7 +191,7 @@ button:disabled,
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f8f8f8; /* 연한 회색 */
+  background: #d9d9da;
 }
 
 .login-box {
@@ -739,7 +739,7 @@ button.send-btn:active {
 }
 
 
-/* ======================= 민서 - 계란깨기 ====================*/
+/* =================== 계란깨기 ====================*/
 
 /* 계란 깨기 화면 */
 #eggbreakScreen {
