@@ -41,8 +41,8 @@
   }
 
  .user-info {
-  right: 8px;
-  margin-top: 10px;
+  right: 15px;
+  margin-top: 15px;
  }
 
  .user-info img,
@@ -53,6 +53,7 @@
  .user-info button {
   padding: 3px 8px;
   font-size: 0.8rem;
+  border: 1px solid #a9a5a5;
  }  
 
   nav.nav {

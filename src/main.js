@@ -155,6 +155,7 @@ function resetChat(showGreeting=true){
   chatBox.innerHTML="";
   input.value="";
   moodModal.style.display="none";
+  moodModal.classList.remove("no-bg");
   resolvedModal.style.display="none";
   initialMood="";
   resolvedMood="";
@@ -301,15 +302,6 @@ function makeDraggable(elem){
   elem.addEventListener("touchend", end);
 }
 
-// ==================== Resolve 버튼 ====================
-resolveBtn.addEventListener("click", () => {
-  if(chatBox.children.length === 0) return;
-  Array.from(chatBox.children).forEach(m => m.remove());
-  resolvedModal.style.display = "flex";
-  canUseGardenAction = false;
-  setGardenButtonsState(false);
-});
-
 trash.addEventListener("dragover", e => e.preventDefault());
 
 const resolvedMoodMessages = {
@@ -322,7 +314,9 @@ const resolvedMoodMessages = {
 resolvedModal.querySelectorAll(".resolved-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     resolvedMood = btn.dataset.emoji;
+
     resolvedModal.style.display = "none";
+
     const paper = document.createElement("div");
     paper.className = "paper";
     paper.textContent = `${initialMood} ➡️ ${resolvedMood}`;
@@ -333,12 +327,36 @@ resolvedModal.querySelectorAll(".resolved-btn").forEach(btn => {
     makeDraggable(paper);
     paper.dataset.resolvedMood = resolvedMood;
     paper.dataset.stage = "flat";
+   
     paper.addEventListener("click", () => {
       if (paper.dataset.stage !== "flat") return;
-      paper.dataset.stage = "crumpled";
-      paper.classList.add("crumple");
+      paper.dataset.stage = "image";
+
+      const img = document.createElement("img");
+      img.src = '../images/paper.png';
+      img.style.width = "80px";
+      img.style.height = "80px";
+
+      paper.textContent = "";
+      paper.appendChild(img);
+
+      resolvedModal.style.background = "none";
+      resolvedModal.style.backdropFilter = "none";
+      resolvedModal.classList.add("no-backdrop-filter");
     });
   });
+});
+
+resolveBtn.addEventListener("click", () => {
+  if (chatBox.children.length === 0) return;
+  Array.from(chatBox.children).forEach(m => m.remove());
+
+  resolvedModal.style.background = "";
+  resolvedModal.style.backdropFilter = "";
+  resolvedModal.style.display = "flex";
+
+  canUseGardenAction = false;
+  setGardenButtonsState(false);
 });
 
 // ==================== 텃밭 가꾸기 ====================
@@ -369,7 +387,6 @@ const Garden = (() => {
         if (x == null || y == null) {
           const plantSize = 30;
           let attempts = 0;
-          const placed = [];
           const bottomRange = gardenContainer.clientHeight * 0.2;
           do {
             x = Math.random() * (gardenContainer.clientWidth - plantSize);
@@ -389,7 +406,8 @@ const Garden = (() => {
         gardenContainer.appendChild(el);
         p.el = el;
       }
-
+      
+      // 아이콘 처리
       if (!p.icon) {
         if (p.stage === "seed") p.icon = "🌱";
         else if (p.stage === "sprout") p.icon = "🥬";
