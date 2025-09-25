@@ -37,12 +37,12 @@
 /* -------------- 상단 화면 구성 -------------- */
   header {
     font-size: 1.4rem;
-    padding: 20px;
+    padding: 25px;
   }
 
  .user-info {
   right: 8px;
-  margin-top: 5px;
+  margin-top: 10px;
  }
 
  .user-info img,
@@ -59,12 +59,16 @@
     height: var(--nav-height);
     margin-top: 10px;
   }
-
+  
   nav.nav button {
-    padding: 3px 12px;
-    font-size: 0.85rem;
-    margin: 0 0.1px;
-  }
+  padding: 20px 10px;
+  font-size: 0.8rem;
+  margin: 0 1px; 
+  border-radius: 20px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
 
 
 /* -------------- 모달 -------------- */
