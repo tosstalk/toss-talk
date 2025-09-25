@@ -102,6 +102,25 @@
   margin-top: 50px;
 }
 
+
+/* ----------------- 텃밭 가꾸기 ----------------- */
+.garden-box {
+  background-image: url('../images/garden.background.mobile.jpg');
+   max-width: 100%;
+  margin: 12px auto 0 auto;
+  margin-top: 50px;
+  min-height: 400px;   
+  height: 50vh;        
+  overflow-y: auto; 
+}
+
+#harvestCountStatus {
+  width: 230px;
+}
+.garden-controls {
+  margin-top: 40px;
+}
+
 /* 메인 화면/정원/계란 화면 여백 축소 */
   #mainScreen,
   #gardenScreen,
@@ -117,7 +136,6 @@
   }
 
 /* 정원/계란 박스 꽉 차게 */
-  .garden-box,
   .egg-box {
     max-width: 100%;
     margin: 12px auto 0 auto;
