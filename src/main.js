@@ -363,23 +363,33 @@ const Garden = (() => {
         el.style.position = "absolute";
         el.style.fontSize = "24px";
         el.style.userSelect = "none";
-        const plantSize = 30;
-        let x, y, attempts = 0;
-        do {
+        
+        let x = p.x;
+        let y = p.y;
+        if (x == null || y == null) {
+          const plantSize = 30;
+          let attempts = 0;
+          const placed = [];
           const bottomRange = gardenContainer.clientHeight * 0.2;
-          x = Math.random() * (gardenContainer.clientWidth - plantSize);
-          y = Math.random() * bottomRange;
-          attempts++;
-        } while (
-          placed.some(pos => Math.abs(pos.x - x) < plantSize && Math.abs(pos.y - y) < plantSize) &&
-          attempts < 50
-        );
-        placed.push({ x, y });
+          do {
+            x = Math.random() * (gardenContainer.clientWidth - plantSize);
+            y = Math.random() * bottomRange;
+            attempts++;
+          } while (
+            placed.some(pos => Math.abs(pos.x - x) < plantSize && Math.abs(pos.y - y) < plantSize) && 
+            attempts < 50
+          );
+          placed.push({ x, y });
+        }
         el.style.left = `${x}px`;
         el.style.bottom = `${y}px`;
+        
+        p.x = x; 
+        p.y = y;
         gardenContainer.appendChild(el);
         p.el = el;
       }
+
       if (!p.icon) {
         if (p.stage === "seed") p.icon = "🌱";
         else if (p.stage === "sprout") p.icon = "🥬";
@@ -404,7 +414,15 @@ const Garden = (() => {
     render();
     onSeedPlanted(count);
     HarvestStatus.update(harvestedCount);
-    if (userId) await saveGarden(userId, plants.map(p => ({ stage: p.stage, icon: p.icon })), harvestedCount);
+    if (userId) await saveGarden(
+      userId, 
+      plants.map(p => ({ 
+        stage: p.stage, 
+        icon: p.icon,
+        x: p.x ?? null,
+        y: p.y ?? null 
+      })), 
+      harvestedCount);
   }
 
   async function waterPlants() {
@@ -419,7 +437,15 @@ const Garden = (() => {
       }
     });
     render();
-    if (userId) await saveGarden(userId, plants.map(p => ({ stage: p.stage, icon: p.icon })), harvestedCount);
+    if (userId) await saveGarden(
+      userId, 
+      plants.map(p => ({ 
+        stage: p.stage, 
+        icon: p.icon,
+      x: p.x ?? null,
+    y: p.y ?? null })), 
+    harvestedCount
+  );
     if (plants.some(p => p.stage === "crop")) onFullyGrown();
     else if (plants.some(p => p.stage === "sprout")) onGrowing();
     else plantStatus.textContent = "🐞 채소를 수확해봐요 ! 🌽";
@@ -448,7 +474,9 @@ const Garden = (() => {
         else if (stage === "sprout") icon = "🥬";
         else icon = plantIcons.crops[Math.floor(Math.random() * plantIcons.crops.length)];
       }
-      return { stage, icon };
+      const x = p.x ?? null;
+      const y = p.y ?? null;
+      return { stage, icon, x, y };
     });
     harvestedCount = initialHarvested;
     render();
