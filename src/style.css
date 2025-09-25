@@ -412,14 +412,8 @@ button.send-btn:active {
   margin-top: 12px;
 }
 
-.modal.no-backdrop-filter {
-  background-color: transparent !important; /* 기존 rgba 제거 */
-  backdrop-filter: none !important;
-}
-
-/* ----------------- 포스트잇 ----------------- */
 .paper {
-  /* 포스트잇 스타일. */
+  /* 종이 스타일. */
   /* 절대 위치, 드래그 가능한 커서, 크기, 배경색, 줄무늬 효과, 그림자 등을 설정. */
   position: absolute;
   cursor: grab;

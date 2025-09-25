@@ -305,10 +305,29 @@ function makeDraggable(elem){
 trash.addEventListener("dragover", e => e.preventDefault());
 
 const resolvedMoodMessages = {
-  "☺️": ["😃 기분 풀려서 다행이야 !", "😁 남은 하루는 기분 좋게 보내!", "🎶 AKMU - I Love You"],
-  "😌": ["☺️ 조금 나아졌다니 다행이다.", "😊 많이 웃고 좋은 생각만 해.", "🎶 GongGongGoo009 - 산책"],
-  "🙃": ["😌 시간이 지나면 천천히 괜찮아질 거야.", "🫠 맛있는 거 먹으러 갔다 와.", "🎶 pH-1 - Homebody"],
-  "❌": ["🥺 지금도 힘들구나. 한 숨 푹 자는 건 어때?", "🥹 넌 혼자가 아니야. 우리 또 대화할까?", "🎶 Damons year - D16 D17"]
+  "☺️": [
+    "😃 기분 풀려서 다행이야 !", 
+    "😁 남은 하루는 기분 좋게 보내!", 
+    "🎶 AKMU - I Love You"
+  ],
+
+  "😌": [
+    "☺️ 조금 나아졌다니 다행이다.", 
+    "😊 많이 웃고 좋은 생각만 해.", 
+    "🎶 GongGongGoo009 - 산책"
+  ],
+
+  "🙃": [
+    "😌 시간이 지나면 천천히 괜찮아질 거야.", 
+    "🫠 맛있는 거 먹으러 갔다 와.", 
+    "🎶 pH-1 - Homebody"
+  ],
+
+  "❌": [
+    "🥺 지금도 힘들구나. 한 숨 푹 자는 건 어때?", 
+    "🥹 넌 혼자가 아니야. 우리 또 대화할까?", 
+    "🎶 Damons year - D16 D17"
+  ]
 };
 
 resolvedModal.querySelectorAll(".resolved-btn").forEach(btn => {
@@ -339,10 +358,6 @@ resolvedModal.querySelectorAll(".resolved-btn").forEach(btn => {
 
       paper.textContent = "";
       paper.appendChild(img);
-
-      resolvedModal.style.background = "none";
-      resolvedModal.style.backdropFilter = "none";
-      resolvedModal.classList.add("no-backdrop-filter");
     });
   });
 });
