@@ -1,0 +1,126 @@
+/* style.mobile.css */
+
+/* (768px 이하) 기준 */
+@media (max-width: 768px) {
+
+  :root {
+    --header-height: 60px; /* 헤더 줄이기 */
+    --nav-height: 50px;    /* 네비 줄이기 */
+  }
+
+  body {
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 0;
+    margin: 0;
+  }
+
+
+/* -------------- 상단 화면 구성 -------------- */
+  header {
+    font-size: 1.4rem;
+    padding: 20px;
+  }
+
+ .user-info {
+  right: 8px;
+  margin-top: 5px;
+ }
+
+ .user-info img,
+ .user-info span {
+  display: none;
+ }
+
+ .user-info button {
+  padding: 3px 8px;
+  font-size: 0.8rem;
+ }  
+
+  nav.nav {
+    height: var(--nav-height);
+    margin-top: 10px;
+  }
+
+  nav.nav button {
+    padding: 3px 12px;
+    font-size: 0.85rem;
+    margin: 0 0.1px;
+  }
+
+
+/* -------------- 모달 -------------- */
+.modal-content {
+  padding: 20px 25px;
+  border-radius: 30px;
+}  
+
+/* ----------------- 상담하기 ----------------- */
+#chat {
+  max-width: 100%;
+  margin: 12px auto 0 auto;
+  margin-top: 50px;
+  min-height: 400px;   
+  height: 50vh;        
+  overflow-y: auto; 
+}
+
+#trash-container {
+  margin-top: 30px;
+}
+
+#trash {
+  font-size: 35px;
+  padding: 12px 30px;
+  border-radius: 20px;
+}
+
+.input-container {
+  margin: 20px auto;
+  margin-top: 50px;
+}
+
+/* 메인 화면/정원/계란 화면 여백 축소 */
+  #mainScreen,
+  #gardenScreen,
+  #eggbreakScreen {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* 로그인 박스 크기 줄이기 */
+  .login-box {
+    width: 90%;
+    padding: 24px 16px;
+  }
+
+/* 정원/계란 박스 꽉 차게 */
+  .garden-box,
+  .egg-box {
+    max-width: 100%;
+    margin: 12px auto 0 auto;
+  }
+
+  /* 버튼, 인풋 크기 조정 */
+  button,
+  .btn,
+  .google-btn,
+  .send-btn {
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 6px;
+  }
+
+  /* 카드/콘텐츠 영역 좁은 화면 맞춤 */
+  .content-box {
+    padding: 12px;
+    margin: 8px 0;
+  }
+
+  /* 이미지나 박스가 화면에 꽉 차도록 */
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
