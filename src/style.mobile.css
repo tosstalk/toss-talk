@@ -16,6 +16,24 @@
   }
 
 
+/* -------------- 로그인 화면 구성 ------------- */
+.login-box {
+  border-radius: 20px;
+  width: 360px;
+  font-size: 1rem;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+}
+
+  .google-btn {
+  border-radius: 30px !important;
+  width: 180px; 
+  margin: 0 auto;
+}
+
+
 /* -------------- 상단 화면 구성 -------------- */
   header {
     font-size: 1.4rem;
