@@ -106,12 +106,11 @@
 /* ----------------- 텃밭 가꾸기 ----------------- */
 .garden-box {
   background-image: url('../images/garden.background.mobile.jpg');
-   max-width: 100%;
+  max-width: 100%;
   margin: 12px auto 0 auto;
   margin-top: 50px;
   min-height: 400px;   
   height: 50vh;        
-  overflow-y: auto; 
 }
 
 #harvestCountStatus {
@@ -121,6 +120,44 @@
   margin-top: 40px;
 }
 
+
+/* -------------- 계란 깨기 -------------- */
+.egg-box{
+  background-image: url('../images/egghouse.mobile.jpg');
+  max-width: 100%;
+  margin: 12px auto 0 auto;
+  margin-top: 50px;
+  min-height: 400px;   
+  height: 50vh;        
+  overflow-y: auto; 
+}
+
+.selection-top-section {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 10px;
+}
+
+#egg-selection,
+#tool-selection {
+  gap: 10px;
+  margin-top: 5px;
+  top: -45px; 
+  position: relative;
+}
+
+.nav-btn {
+  padding: 1px;
+}
+
+.selectable-item {
+  width: 120px;
+  height: 120px;
+}
+
+
+/* -------------- 기타 요소 -------------- */
 /* 메인 화면/정원/계란 화면 여백 축소 */
   #mainScreen,
   #gardenScreen,
@@ -133,12 +170,6 @@
   .login-box {
     width: 90%;
     padding: 24px 16px;
-  }
-
-/* 정원/계란 박스 꽉 차게 */
-  .egg-box {
-    max-width: 100%;
-    margin: 12px auto 0 auto;
   }
 
   /* 버튼, 인풋 크기 조정 */

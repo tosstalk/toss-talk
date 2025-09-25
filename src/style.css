@@ -532,7 +532,7 @@ button.send-btn:active {
 
 .garden-box {
   /* 정원 배경이 되는 박스 스타일. */
-  /* 채팅창과 유사하며, 배경 이미지를 사용. */
+  overflow-y: hidden; 
   position: relative;
   border-radius: 15px;
   border: 2px solid #c0c0c0;
@@ -540,7 +540,6 @@ button.send-btn:active {
   width: 100%;
   max-width: 700px;
   height: auto;
-  overflow-y: auto;
   background-image: url('../images/garden.background.pc.jpg');
   background-size: cover;
   background-position: center;
@@ -714,7 +713,7 @@ button.send-btn:active {
   max-width: 700px;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: url('../images/egghouse.jpg') center/cover no-repeat;
+  background: url('../images/egghouse.pc.jpg') center/cover no-repeat;
   box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
   margin: 30px auto 0 auto;
   display: flex;
@@ -771,11 +770,6 @@ button.send-btn:active {
   align-items: flex-start;
   gap: 50px;
   margin-bottom: 20px;
-}
-
-#selection-screen h4 {
-  /* 선택 화면의 제목 폰트 스타일. */
-  margin: 0;
 }
 
 .selection-group {
