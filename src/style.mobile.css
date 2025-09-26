@@ -37,12 +37,12 @@
 /* -------------- 상단 화면 구성 -------------- */
   header {
     font-size: 1.4rem;
-    padding: 25px;
+    padding: 20px;
   }
 
  .user-info {
   right: 15px;
-  margin-top: 15px;
+  margin-top: 8px;
  }
 
  .user-info img,
@@ -58,7 +58,7 @@
 
   nav.nav {
     height: var(--nav-height);
-    margin-top: 10px;
+    margin-top: 1px;
   }
   
   nav.nav button {
@@ -100,7 +100,7 @@
 
 .input-container {
   margin: 20px auto;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 
@@ -112,6 +112,7 @@
   margin-top: 50px;
   min-height: 400px;   
   height: 50vh;        
+  overflow-x: hidden;
 }
 
 #harvestCountStatus {
