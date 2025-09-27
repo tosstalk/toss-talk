@@ -802,9 +802,9 @@ button.send-btn:active {
 
 /* 선택된 아이템의 스타일 */
 .selectable-item.selected {
-    border: 2px solid #007AFF; 
-    box-shadow: 0 0 3px #007AFF, 0 0 6px #007AFF;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 2px solid #718096;            /* 파란기운 살짝 있는 그레이 */
+  box-shadow: 0 0 3px #6c7a89, 0 0 6px #718096;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* 선택 아이템 호버 시 효과 */
