@@ -683,7 +683,7 @@ button.send-btn:active {
     aspect-ratio: 16 / 9;
     overflow: hidden;
     /* 배경 이미지 경로를 확인해봐. (images/egghouse.pc.jpg) */
-    background: url('../images/egghome.jpg') center/cover no-repeat;
+    background: url('../images/Arim’s garden.png') center/cover no-repeat;
     box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
     /* 상단 마진은 #eggbreakScreen의 padding-top과 겹치지 않게 조절 */
     margin: 30px auto 0 auto; 
