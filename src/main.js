@@ -613,11 +613,17 @@ const TOOL_DATA = [
     { src: "./images/fan.png", alt: "프라이팬" },
     { src: "./images/hand.png", alt: "주먹" }
 ];
-
-const COUNT_STAGES = {
-    crack1: 10,
-    crack2: 20,
-    explode: 30
+// [변경 1] COUNT_STAGES를 초기 설정 값으로 변경 (상수 -> 변수
+const COUNT_RANGES = {
+    crack1: { min: 5, max: 15 }, // 1단계 금 (5~15회)
+    crack2: { min: 15, max: 25 }, // 2단계 금 (15~25회)
+    explode: { min: 30, max: 50 } // 최종 폭발 (30~50회)
+};
+// [추가] 랜덤하게 계산된 클릭 수치를 저장할 변수
+let currentCountStages = {
+    crack1: 0,
+    crack2: 0,
+    explode: 0
 };
 
 const FINAL_EXPLOSION_IMAGE = "./images/fiegg.png";
@@ -659,6 +665,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // =================================================================
 
     // 4-1. 선택 완료 확인 및 시작 버튼 활성화
+    // [추가] 최소값과 최대값(포함) 사이의 랜덤 정수를 반환하는 함수
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    // [추가] 랜덤 클릭 횟수를 계산하여 currentCountStages에 저장하는 함수
+     function setRandomCountStages() {
+        // 1단계 금: 5~15회
+        currentCountStages.crack1 = getRandomIntInclusive(COUNT_RANGES.crack1.min, COUNT_RANGES.crack1.max);
+
+        // 2단계 금: 1단계 금 횟수 + 15~25회 범위
+        // 최소값은 (crack1 + 1), 최대값은 (crack1 + crack2.max - crack2.min + 1) 범위를 기준으로 설정
+        // 또는 crack1 이후 5~10회 사이로 설정
+        const crack2Min = currentCountStages.crack1 + COUNT_RANGES.crack2.min; // 예: 10 + 15 = 25
+        const crack2Max = currentCountStages.crack1 + COUNT_RANGES.crack2.max; // 예: 10 + 25 = 35
+        currentCountStages.crack2 = getRandomIntInclusive(crack2Min, crack2Max);
+        
+        // 최종 폭발: 2단계 금 횟수 + 5~10회 사이로 설정 (총 30~50회)
+        const explodeMin = currentCountStages.crack2 + (COUNT_RANGES.explode.min - COUNT_RANGES.crack2.min);
+        const explodeMax = currentCountStages.crack2 + (COUNT_RANGES.explode.max - COUNT_RANGES.crack2.max);
+        // 간편하게: 30~50 범위에서 설정 (crack2보다 무조건 커야 함)
+        const finalMin = Math.max(currentCountStages.crack2 + 5, COUNT_RANGES.explode.min);
+        const finalMax = COUNT_RANGES.explode.max;
+        currentCountStages.explode = getRandomIntInclusive(finalMin, finalMax);
+
+        console.log("새로운 목표 횟수:", currentCountStages); // 개발자 도구 확인용
+    }
     function checkSelection() {
         // 이미 selectedEggIndex와 selectedToolIndex가 0으로 초기화되었기 때문에
         // 항상 null이 아니지만, 로직의 안전성을 위해 유지.
@@ -692,7 +726,8 @@ document.addEventListener('DOMContentLoaded', () => {
         DOM.mainScreen.style.display = "none";
         DOM.gardenScreen.style.display = "none";
         eggbreakScreen.style.display = "block"; // eggbreakScreen은 전역 변수
-        
+        //게임 리셋 시 랜덤 카운트 재설정
+        setRandomCountStages();
         // 상태 초기화
         clickCount = 0;
         selectedEggIndex = 0;
@@ -719,7 +754,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4-4. 계란 클릭 시 게임 상태 업데이트
     function handleEggClick() {
-        if (clickCount >= COUNT_STAGES.explode) return;
+        if (clickCount >= currentCountStages.explode) return;
         
         clickCount++;
         DOM.counterElement.textContent = clickCount;
@@ -734,16 +769,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 계란 이미지 업데이트
         const currentEgg = EGG_DATA[selectedEggIndex];
-        if (clickCount === COUNT_STAGES.crack1) {
+        // [수정 3] currentCountStages의 랜덤 값과 비교
+          if (clickCount === currentCountStages.crack1) {
             DOM.eggImage.src = currentEgg.crackedImages[0];
             DOM.eggStatus.textContent = "🐣 금 가기 시작했어 ! 🪓";
-        } else if (clickCount === COUNT_STAGES.crack2) {
+        } else if (clickCount === currentCountStages.crack2) {
             DOM.eggImage.src = currentEgg.crackedImages[1];
             DOM.eggStatus.textContent = "🐣 거의 다 왔어 ! ⛏️";
         }
         
         // 최종 폭발
-        if (clickCount >= COUNT_STAGES.explode) {
+        // [수정 4] currentCountStages의 랜덤 값과 비교
+        if (clickCount >= currentCountStages.explode) {
             DOM.eggImage.src = FINAL_EXPLOSION_IMAGE;
             DOM.eggStatus.textContent = "🐣 스트레스 완전 박살 ! 💥";
             DOM.eggImage.style.cursor = 'default';
@@ -781,4 +818,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 초기 설정 실행
     checkSelection(); 
+    // [수정 5] DOMContentLoaded 시점에 랜덤 카운트 초기 설정
+    setRandomCountStages();
 });
