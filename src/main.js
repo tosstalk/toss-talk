@@ -575,27 +575,35 @@ const eggbreakScreen = document.getElementById("eggbreakScreen");
 // =================================================================
 const EGG_DATA = [
     {
-        src: "./images/red_egg.png",
+        src: "./images/egg1.png",
         alt: "계란 1",
         crackedImages: [
-            "./images/red_egg_crack1.png",
-            "./images/red_egg_crack2.png"
+            "./images/egg1_crack1.png",
+            "./images/egg1_crack2.png"
         ],
     },
     {
-        src: "./images/pupple_egg.png",
+        src: "./images/egg2.png",
         alt: "계란 2",
         crackedImages: [
-            "./images/pupple_egg_crack1.png",
-            "./images/pupple_egg_crack2.png"
+            "./images/egg2_crack1.png",
+            "./images/egg2_crack2.png"
         ],
     },
     {
-        src: "./images/green_egg.png",
+        src: "./images/egg3.png",
         alt: "계란 3",
         crackedImages: [
-            "./images/green_egg_crack1.png",
-            "./images/green_egg_crack2.png"
+            "./images/egg3_crack1.png",
+            "./images/egg3_crack2.png"
+        ],
+    },
+        {
+        src: "./images/egg4.png",
+        alt: "계란 4",
+        crackedImages: [
+            "./images/egg4_crack1.png",
+            "./images/egg4_crack2.png"
         ],
     }
 ];
@@ -619,7 +627,7 @@ let currentCountStages = {
     explode: 0
 };
 
-const FINAL_EXPLOSION_IMAGE = "./images/fire.png";
+const FINAL_EXPLOSION_IMAGE = "./images/fiegg.png";
 
 // =================================================================
 // 3. DOMContentLoaded 이벤트 리스너 (DOM 로드 후 실행)
