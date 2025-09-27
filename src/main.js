@@ -32,7 +32,7 @@ async function loadGarden(userId) {
 }
 
 async function saveGarden(userId, plants, harvestedCount){
-  console.log("saveGarden 호출", {userId, plants, harvestedCount});
+  //console.log("saveGarden 호출");
   if(!userId) return;
   const ref = doc(db, "gardens", userId);
   try {
@@ -40,7 +40,7 @@ async function saveGarden(userId, plants, harvestedCount){
       garden: { plants, harvestedCount },
       lastGardenUse: serverTimestamp()
     }, { merge:true });
-    console.log("Firestore 저장 성공");
+    //console.log("Firestore 저장 성공");
   } catch(err) {
     console.error("Firestore 저장 실패:", err);
   }
@@ -561,6 +561,7 @@ waterButton.addEventListener("click", async()=>{
   await Garden.waterPlants();
 });
 
+
 //계란 깨기
 // =================================================================
 // 1. 전역 변수/상수 (HTML에 직접 연결되는 최상위 요소)
@@ -574,35 +575,27 @@ const eggbreakScreen = document.getElementById("eggbreakScreen");
 // =================================================================
 const EGG_DATA = [
     {
-        src: "./images/egg1.png",
+        src: "./images/red_egg.png",
         alt: "계란 1",
         crackedImages: [
-            "./images/egg1_crack1.png",
-            "./images/egg1_crack2.png"
+            "./images/red_egg_crack1.png",
+            "./images/red_egg_crack2.png"
         ],
     },
     {
-        src: "./images/egg2.png",
+        src: "./images/pupple_egg.png",
         alt: "계란 2",
         crackedImages: [
-            "./images/egg2_crack1.png",
-            "./images/egg2_crack2.png"
+            "./images/pupple_egg_crack1.png",
+            "./images/pupple_egg_crack2.png"
         ],
     },
     {
-        src: "./images/egg3.png",
+        src: "./images/green_egg.png",
         alt: "계란 3",
         crackedImages: [
-            "./images/egg3_crack1.png",
-            "./images/egg3_crack2.png"
-        ],
-    },
-    {
-        src: "./images/egg4.png",
-        alt: "계란 4",
-        crackedImages: [
-            "./images/egg4_crack1.png",
-            "./images/egg4_crack2.png"
+            "./images/green_egg_crack1.png",
+            "./images/green_egg_crack2.png"
         ],
     }
 ];
@@ -620,7 +613,7 @@ const COUNT_STAGES = {
     explode: 30
 };
 
-const FINAL_EXPLOSION_IMAGE = "./images/fiegg.png";
+const FINAL_EXPLOSION_IMAGE = "./images/fire.png";
 
 // =================================================================
 // 3. DOMContentLoaded 이벤트 리스너 (DOM 로드 후 실행)
