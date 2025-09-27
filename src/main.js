@@ -308,25 +308,53 @@ const resolvedMoodMessages = {
   "☺️": [
     "😃 기분 풀려서 다행이야 !", 
     "😁 남은 하루는 기분 좋게 보내!", 
-    "🎶 AKMU - I Love You"
+    "​🎧​ AKMU - I Love You",
+    "​🎧​ yung kai - blue",
+    "​🎧​ Potatoi - 100p",
+    "​🎧​ 어반자카파 - 목요일 밤 (feat. 빈지노)",
+    "​🎧​ 백예린 - Bunny",
+    "​🎧​ Powfu -death bed (feat. Beabadoobee)",
+    "​🎧​ Bruno Mars - That's What I Like(PARTYNEXTDOOR Remix)",
+    "​🎧​ Vaundy - 踊り子 (Odoriko)"
   ],
 
   "😌": [
     "☺️ 조금 나아졌다니 다행이다.", 
     "😊 많이 웃고 좋은 생각만 해.", 
-    "🎶 GongGongGoo009 - 산책"
+    "​🎧​ GongGongGoo009 - 산책",
+    "​🎧​ 빈지노 - Nike Shoes (Feat. 다이나믹 듀오)",
+    "🎧​ あいみょん(aimyon) - 愛を伝えたいだとか (Ai wo Tsutaetaidatoka)",
+    "🎧 경제환 - 니가 돌아올 희망은 없다는 걸 알아",  
+    "🎧 죠지 - Boat",
+    "🎧 IU - 비밀의 화원",
+    "🎧 PATEKO (파테코)  - 떠나",
+    "🎧 BIG Naughty (빅나티) - Vancouver"
   ],
 
   "🙃": [
     "😌 시간이 지나면 천천히 괜찮아질 거야.", 
     "🫠 맛있는 거 먹으러 갔다 와.", 
-    "🎶 pH-1 - Homebody"
+    "​🎧​ pH-1 - Homebody",
+    "🎧​ Fujii Kaze - Shinunoga E-Wa",
+    "🎧 IU - 사랑이 잘 (With 오혁)",
+    "🎧 PATEKO (파테코) - 널 떠올리는 중이야",
+    "🎧 백예린 - 우주를 건너",
+    "🎧 TREASURE (트레저) - 병",
+    "🎧 GEEKS (긱스) - Officially Missing You",
+    "🎧 ABIR - Tango"
   ],
 
   "❌": [
     "🥺 지금도 힘들구나. 한 숨 푹 자는 건 어때?", 
     "🥹 넌 혼자가 아니야. 우리 또 대화할까?", 
-    "🎶 Damons year - D16 D17"
+    "​🎧​ Damons year - D16 D17",
+    "​🎧​ 백예린  - 0310",
+    "​🎧​ Adam Levine -Lost Stars",
+    "🎧 ed - Kaution",
+    "🎧 수란 - 오늘 취하면",
+    "🎧 모트 - 도망가지마",
+    "🎧 Xdinary Heroes (엑스디너리 히어로즈) - Night before the end",
+    "🎧 Diverseddie - Serenade"
   ]
 };
 
