@@ -657,255 +657,266 @@ button.send-btn:active {
 
 /* =================== 계란깨기 ====================*/
 
-/* 계란 깨기 화면 */
+/* =================================================================
+   1. 전체 화면 레이아웃 및 컨테이너 스타일 (Screen & Box)
+   ================================================================= */
+
+/* 계란 깨기 화면 컨테이너 (index.html의 #eggbreakScreen) */
 #eggbreakScreen {
-  /* 계란 깨기 화면 컨테이너. */
-  /* 다른 화면과 마찬가지로 헤더/네비게이션 높이를 고려해 패딩을 줌. */
-  padding-top: calc(var(--header-height) + var(--nav-height));
-  min-height: 100vh;
-  background: #f8f8f8;
-  padding-left: 80px;
-  padding-right: 80px;
+    /* 다른 화면과 마찬가지로 헤더/네비게이션 높이를 고려해 패딩을 줌. */
+    padding-top: calc(var(--header-height) + var(--nav-height));
+    min-height: 100vh;
+    background: #f8f8f8;
+    padding-left: 80px;
+    padding-right: 80px;
 }
 
+/* 계란 깨기 게임 영역 박스 (.egg-box) */
 .egg-box {
-  /* 계란 깨기 게임 영역 박스. */
-  /* 배경 이미지, 테두리, 그림자 등을 설정. */
-  position: relative;
-  border-radius: 15px;
-  border: 2px solid #c0c0c0;
-  padding: 15px;
-  width: 100%;
-  max-width: 700px;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: url('../images/egghouse.pc.jpg') center/cover no-repeat;
-  box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
-  margin: 30px auto 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+    /* 배경 이미지, 테두리, 그림자 등을 설정. */
+    position: relative;
+    border-radius: 15px;
+    border: 2px solid #c0c0c0;
+    padding: 15px;
+    width: 100%;
+    max-width: 700px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    /* 배경 이미지 경로를 확인해봐. (images/egghouse.pc.jpg) */
+    background: url('../images/egghouse.pc.jpg') center/cover no-repeat;
+    box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.1);
+    /* 상단 마진은 #eggbreakScreen의 padding-top과 겹치지 않게 조절 */
+    margin: 30px auto 0 auto; 
+    
+    /* 자식 요소 정렬을 위한 Flex 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
+
+/* 계란 깨기 게임 제어 버튼 컨테이너 (egg-box 바깥에 위치) */
+#egg-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* =================================================================
+   2. 게임 시작 버튼 스타일 (#start-game-btn)
+   ================================================================= */
 
 #start-game-btn {
-  /* 게임 시작 버튼 스타일. */
-  /* 주황색 계열의 그라데이션, 그림자, 전환 효과를 적용. */
-  padding: 10px 20px;
-  font-size: 16px;
-  border: 2px solid #e67e22;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #f0a05d, #e67e22);
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-  transition: all 0.2s;
-  margin-top: 10px;
-  align-self: center;
-  margin-top: 15px;
+    /* 주황색 계열의 그라데이션, 그림자, 전환 효과를 적용. */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #e67e22;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f0a05d, #e67e22);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    transition: all 0.2s;
+    margin-top: 15px; 
 }
 
+/* 호버 시 효과 */
 #start-game-btn:hover:enabled {
-  /* 호버 시 그라데이션 변경, 그림자 강화, 살짝 위로 이동. */
-  background: linear-gradient(135deg, #f2b57f, #eb8130);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.4);
-  transform: translateY(-2px);
+    /* 그라데이션 변경, 그림자 강화, 살짝 위로 이동. */
+    background: linear-gradient(135deg, #f2b57f, #eb8130);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
 }
 
+/* 클릭 시 효과 */
 #start-game-btn:active:enabled {
-  /* 클릭 시 그림자 약화, 살짝 아래로 이동. */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transform: translateY(1px);
+    /* 그림자 약화, 살짝 아래로 이동. */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transform: translateY(1px);
 }
 
-/* 선택 화면 */
+/* =================================================================
+  3. 계란/도구 선택 화면 스타일 (#selection-screen)
+   ================================================================= */
+
+/* 선택 화면 컨테이너 */
 #selection-screen {
-  /* 계란/도구 선택 화면 컨테이너. */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* ⭐ 수정된 부분: 원래 값인 100px로 복원 */
+    margin-top: 100px; 
 }
 
+/* 계란/도구 그룹 섹션 */
 .selection-top-section {
-  /* 계란 선택과 도구 선택 그룹을 묶는 컨테이너. */
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 50px;
-  margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    margin-bottom: 20px;
 }
 
+/* 개별 선택 그룹 (계란 또는 도구) */
 .selection-group {
-  /* 계란 또는 도구 선택 그룹. */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* 계란/도구 선택 영역의 공통 레이아웃 */
+/* 선택 아이템 컨테이너 공통 레이아웃 */
 #egg-selection,
 #tool-selection {
-  /* 계란/도구 아이템들을 감싸는 컨테이너. */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
 }
 
 /* 화살표 버튼 스타일 */
 .nav-btn {
-  /* 선택 항목을 넘기는 화살표 버튼 스타일. */
-  background: none;
-  font-size: 2rem;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 7px;
-  transition: color 0.2s;
+    background: none;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 7px;
+    transition: color 0.2s;
 }
 
-/* 선택 가능한 아이템의 공통 스타일 (이제는 단일 이미지에만 적용) */
+/* 선택 가능한 아이템 이미지 공통 스타일 */
 .selectable-item {
-  /* 선택 가능한 계란/도구 이미지 스타일. */
-  cursor: pointer;
-  border: 3px solid transparent;
-  border-radius: 10px;
-  transition: transform 0.2s, border-color 0.2s;
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    transition: transform 0.2s, border-color 0.2s;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
 }
 
+/* 선택된 아이템의 스타일 */
 .selectable-item.selected {
-  border: 2px solid #007AFF; 
-  box-shadow: 0 0 3px #007AFF, 0 0 6px #007AFF;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 2px solid #007AFF; 
+    box-shadow: 0 0 3px #007AFF, 0 0 6px #007AFF;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* 마우스 오버 시 효과 */
+/* 선택 아이템 호버 시 효과 */
 .selectable-item:hover {
-  /* 호버 시 아이템을 살짝 확대. */
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
-/* 게임 진행 화면 */
+/* =================================================================
+  4. 게임 진행 화면 스타일 (#game-screen)
+   ================================================================= */
+
+/* 게임 진행 화면 컨테이너 */
 #game-screen {
-  /* 게임 진행 중인 화면 컨테이너. */
-  text-align: center;
+    text-align: center;
 }
 
+/* 클릭 횟수 카운터 스타일 */
 #counter {
-  /* 클릭 횟수 카운터 스타일. */
-  display: inline-block;
-  padding: 10px 20px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  font-size: 16px;
-  color: #333;
-  margin-top: 30px;
-  border: 2px dashed #888;
-  border-radius: 12px;
-  background-color: #ffffffcc;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-top: 5px;
-  margin-bottom: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    font-size: 16px;
+    color: #333;
+    border: 2px dashed #888;
+    border-radius: 12px;
+    background-color: #ffffffcc;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 5px auto 20px auto; 
 }
 
+/* 계란 이미지 컨테이너 */
 #egg-container {
-  /* 계란 이미지를 감싸는 컨테이너. */
-  position: relative;
-  width: 250px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: 3px auto;
+    position: relative;
+    width: 250px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px auto; 
 }
 
+/* 계란 이미지 스타일 */
 #egg-image {
-  /* 계란 이미지 스타일. */
-  max-width: 100%;
-  height: auto;
-  width: 100%;
-  cursor: pointer;
-  transition: transform 0.1s;
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    cursor: pointer;
+    transition: transform 0.1s;
 }
 
 /* 계란 클릭 시 살짝 커지는 효과 */
 #egg-image:active {
-  /* 클릭 시 살짝 확대. */
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
+/* 도구 이미지 스타일 */
 #tool-image {
-  /* 도구 이미지 스타일. */
-  /* 처음에는 숨겨져 있다가 애니메이션으로 나타나게 함. */
-  position: absolute;
-  width: 150px;
-  opacity: 0;
-  transform: translateY(-100px);
-  transition: transform 0.1s, opacity 0.1s;
+    position: absolute;
+    width: 150px;
+    /* ⭐ 수정된 부분: 초기 transform 제거 (애니메이션이 담당하도록) */
+    opacity: 0;
+    transition: transform 0.1s, opacity 0.1s;
 }
 
-.tool-animation {
-  /* 도구 이미지에 적용되는 애니메이션. */
-  animation: hit 0.2s forwards;
-}
+/* =================================================================
+  5. 상태 메시지 및 애니메이션
+   ================================================================= */
 
-@keyframes hit {
-  /* 도구가 계란을 '치는' 듯한 애니메이션. */
-  /* 위에서 내려와 살짝 커졌다가 다시 제자리로 돌아가면서 투명해짐. */
-  0%   { transform: translateY(-50px) scale(0.8); opacity: 1; }
-  50%  { transform: translateY(0px)  scale(1.1); opacity: 1; }
-  100% { transform: translateY(0px)  scale(1);   opacity: 0; }
-}
-
+/* 계란 상태를 표시하는 말풍선 박스 */
 #egg-status {
-  /* 계란 상태를 표시하는 말풍선 박스. */
-  display: inline-block;
-  padding: 10px 15px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  font-size: 16px;
-  color: #333;
-  margin-top: 30px;
-  border: 2px dashed #888;
-  border-radius: 12px;
-  background-color: #ffffffcc;
-  transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    display: inline-block;
+    padding: 10px 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    font-size: 16px;
+    color: #333;
+    border: 2px dashed #888;
+    border-radius: 12px;
+    background-color: #ffffffcc;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 30px; 
 }
 
-#egg-Status::after {
-  /* 말풍선의 뾰족한 부분 스타일. */
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 20px;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-top-color: #fff;
-  border-bottom: 0;
-  margin-left: -10px;
-  margin-bottom: -10px;
+/* 말풍선의 뾰족한 부분 (꼬리) 스타일 */
+#egg-status::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #fff; 
+    border-bottom: 0;
 }
 
-#egg-control {
-  /* 계란 깨기 게임 제어 버튼 컨테이너. */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  margin-top: 0.5px;
+/* 도구 이미지에 적용되는 애니메이션 클래스 */
+.tool-animation {
+    animation: hit 0.2s forwards;
+}
+
+/* 도구가 계란을 '치는' 듯한 애니메이션 키프레임 */
+@keyframes hit {
+    0% { transform: translateY(-50px) scale(0.8); opacity: 1; }
+    50% { transform: translateY(0px)  scale(1.1); opacity: 1; }
+    100% { transform: translateY(0px)  scale(1);  opacity: 0; }
 }
 
 @keyframes pop {
-  /* 'pop' 애니메이션 키프레임. */
-  /* 요소가 0%에서 시작해 50%에서 1.2배로 커졌다가 100%에서 원래 크기로 돌아오면서 나타나는 효과를 만듦. */
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); }
+    /* 'pop' 애니메이션 키프레임. */
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
 }

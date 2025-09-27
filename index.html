@@ -112,46 +112,47 @@
 
 
 <!----------------------- 계란깨기 ------------------------>
-<!-- 계란 깨기 화면 -->
 <div id="eggbreakScreen" class="garden-page" style="display:none;">
 
-  <!-- 박스 -->
-  <div id="eggContainer" class="egg-box"> 
-    <div id="game-container" style="display: none;">
-      <div id="selection-screen">
-        <div class="selection-top-section">
-          <div class="selection-group">
-            <div id="egg-selection">
-              <button id="prev-egg" class="nav-btn">◀️</button>
-              <img id="egg-display" src="./images/red_egg.png" alt="계란" class="selectable-item selected">
-              <button id="next-egg" class="nav-btn">▶️</button>
+    <div id="eggContainer" class="egg-box"> 
+        
+        <div id="game-container" style="display: none;">
+            
+            <div id="selection-screen">
+                <div class="selection-top-section">
+                    
+                    <div class="selection-group">
+                        <div id="egg-selection">
+                            <button id="prev-egg" class="nav-btn">◀️</button>
+                            <img id="egg-display" src="./images/red_egg.png" alt="계란" class="selectable-item selected">
+                            <button id="next-egg" class="nav-btn">▶️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="selection-group">
+                        <div id="tool-selection">
+                            <button id="prev-tool" class="nav-btn">◀️</button>
+                            <img id="tool-display" src="./images/hammer.png" alt="망치" class="selectable-item">
+                            <button id="next-tool" class="nav-btn">▶️</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="selection-group">
-            <div id="tool-selection">
-              <button id="prev-tool" class="nav-btn">◀️</button>
-              <img id="tool-display" src="./images/hammer.png" alt="망치" class="selectable-item">
-              <button id="next-tool" class="nav-btn">▶️</button>
+            <div id="game-screen" style="display: none;">
+                <div id="counter">카운트: <span>0</span></div>
+                
+                <div id="egg-container">
+                    <img id="egg-image" src="" alt="계란">
+                    <img id="tool-image" src="" alt="도구" class="tool-animation">
+                </div>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
-
-      <div id="game-screen" style="display: none;">
-        <div id="counter">카운트: <span>0</span></div>
-        <div id="egg-container">
-          <img id="egg-image" src="" alt="계란">
-          <img id="tool-image" src="" alt="도구" class="tool-animation">
-        </div>
-      </div>
+    <div id="egg-control">
+        <div id="egg-status"></div>
+        <button id="start-game-btn" disabled>게임 시작</button>
     </div>
-  </div>
-
-  <!-- egg-box 바깥으로 버튼 이동 -->
-  <div id="egg-control">
-  <div id="egg-status"></div>
-  <button id="start-game-btn" disabled>게임 시작</button>
-</div>
+    </div>
 
 <!-- ================= JS 연결 ================= -->
 <script type="module" src="/src/main.js"></script>

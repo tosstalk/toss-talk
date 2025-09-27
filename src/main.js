@@ -533,162 +533,216 @@ waterButton.addEventListener("click", async()=>{
   await Garden.waterPlants();
 });
 
-// ============ 계란깨기 ===============
+//계란 깨기
+// =================================================================
+// 1. 전역 변수/상수 (HTML에 직접 연결되는 최상위 요소)
+// =================================================================
 const eggbreakBtn = document.getElementById("eggbreakBtn");
 const eggbreakScreen = document.getElementById("eggbreakScreen");
+// mainScreen, gardenScreen은 다른 파일에서 정의되었다고 가정
 
-document.addEventListener('DOMContentLoaded', () => {
-  const gameContainer = document.getElementById('game-container');
-  const selectionScreen = document.getElementById('selection-screen');
-  const startGameBtn = document.getElementById('start-game-btn');
-  const gameScreen = document.getElementById('game-screen');
-  const counterElement = document.querySelector('#counter span');
-  const eggImage = document.getElementById('egg-image');
-  const toolImage = document.getElementById('tool-image');
-  const eggDisplay = document.getElementById('egg-display');
-  const prevEggBtn = document.getElementById('prev-egg');
-  const nextEggBtn = document.getElementById('next-egg');
-  const toolDisplay = document.getElementById('tool-display');
-  const prevToolBtn = document.getElementById('prev-tool');
-  const nextToolBtn = document.getElementById('next-tool');
-  const eggStatus = document.getElementById('egg-status');
-
-  eggbreakBtn.addEventListener("click", () => {
-      mainScreen.style.display = "none";
-      gardenScreen.style.display = "none";
-      eggbreakScreen.style.display = "block";
-      gameContainer.style.display = "block";
-  });
-
-  let clickCount = 0;
-  let selectedEggIndex = 0;
-  let selectedToolIndex = 0;
-
-  const eggs = [
+// =================================================================
+// 2. 게임 데이터 및 설정 (상수)
+// =================================================================
+const EGG_DATA = [
     {
-      src: "./images/red_egg.png",
-      alt: "계란 1",
-      crackedImages: [
-        "./images/red_egg_crack1.png",
-        "./images/red_egg_crack2.png"
-      ],
+        src: "./images/red_egg.png",
+        alt: "계란 1",
+        crackedImages: [
+            "./images/red_egg_crack1.png",
+            "./images/red_egg_crack2.png"
+        ],
     },
     {
-      src: "./images/pupple_egg.png",
-      alt: "계란 2",
-      crackedImages: [
-        "./images/pupple_egg_crack1.png",
-        "./images/pupple_egg_crack2.png"
-      ],
+        src: "./images/pupple_egg.png",
+        alt: "계란 2",
+        crackedImages: [
+            "./images/pupple_egg_crack1.png",
+            "./images/pupple_egg_crack2.png"
+        ],
     },
     {
-      src: "./images/green_egg.png",
-      alt: "계란 3",
-      crackedImages: [
-        "./images/green_egg_crack1.png",
-        "./images/green_egg_crack2.png"
-      ],
+        src: "./images/green_egg.png",
+        alt: "계란 3",
+        crackedImages: [
+            "./images/green_egg_crack1.png",
+            "./images/green_egg_crack2.png"
+        ],
     }
-  ];
-  const tools = [
+];
+
+const TOOL_DATA = [
     { src: "./images/hammer.png", alt: "망치" },
     { src: "./images/baseball.png", alt: "야구 방망이" },
-    { src: "./images/pan.png", alt: "프라이팬" },
-    { src: "./images/mic.png", alt: "마이크" }
-  ];
+    { src: "./images/fan.png", alt: "프라이팬" },
+    { src: "./images/hand.png", alt: "주먹" }
+];
 
-  const finalExplosionImage = "./images/fire.png";
-
-  const countStages = {
+const COUNT_STAGES = {
     crack1: 10,
     crack2: 20,
     explode: 30
-  };
+};
 
-  function resetEggGame() {
-    clickCount = 0;
-    selectedEggIndex = 0;
-    selectedToolIndex = 0;
-    selectionScreen.style.display = 'block';
-    gameScreen.style.display = 'none';
-    eggStatus.textContent = "🥚 계란과 도구를 골라줘 🔨";
-    startGameBtn.disabled = false;
-    startGameBtn.style.display = 'inline-block';
-    eggDisplay.src = eggs[0].src;
-    toolDisplay.src = tools[0].src;
-    counterElement.textContent = '0';
-  }
+const FINAL_EXPLOSION_IMAGE = "./images/fire.png";
 
-  eggbreakBtn.addEventListener("click", () => {
-    mainScreen.style.display = "none";
-    gardenScreen.style.display = "none";
-    eggbreakScreen.style.display = "block";
-    resetEggGame();
-  });
+// =================================================================
+// 3. DOMContentLoaded 이벤트 리스너 (DOM 로드 후 실행)
+// =================================================================
+document.addEventListener('DOMContentLoaded', () => {
 
-  prevEggBtn.addEventListener('click', () => {
-    selectedEggIndex = (selectedEggIndex - 1 + eggs.length) % eggs.length;
-    eggDisplay.src = eggs[selectedEggIndex].src;
-  });
+    // 3-1. 게임 관련 DOM 요소 그룹화
+    const DOM = {
+        gameContainer: document.getElementById('game-container'),
+        selectionScreen: document.getElementById('selection-screen'),
+        startGameBtn: document.getElementById('start-game-btn'),
+        gameScreen: document.getElementById('game-screen'),
+        counterElement: document.querySelector('#counter span'),
+        eggImage: document.getElementById('egg-image'),
+        toolImage: document.getElementById('tool-image'),
+        eggDisplay: document.getElementById('egg-display'),
+        prevEggBtn: document.getElementById('prev-egg'),
+        nextEggBtn: document.getElementById('next-egg'),
+        toolDisplay: document.getElementById('tool-display'),
+        prevToolBtn: document.getElementById('prev-tool'),
+        nextToolBtn: document.getElementById('next-tool'),
+        eggStatus: document.getElementById('egg-status'),
+        // mainScreen, gardenScreen 변수가 여기서도 필요할 수 있으니 추가 (상황에 따라)
+        mainScreen: document.getElementById('mainScreen'), 
+        gardenScreen: document.getElementById('gardenScreen')
+    };
 
-  nextEggBtn.addEventListener('click', () => {
-    selectedEggIndex = (selectedEggIndex + 1) % eggs.length;
-    eggDisplay.src = eggs[selectedEggIndex].src;
-  });
+    // 3-2. 게임 상태 변수
+    let clickCount = 0;
+    let selectedEggIndex = 0;
+    let selectedToolIndex = 0;
 
-  prevToolBtn.addEventListener('click', () => {
-    selectedToolIndex = (selectedToolIndex - 1 + tools.length) % tools.length;
-    toolDisplay.src = tools[selectedToolIndex].src;
-  });
 
-  nextToolBtn.addEventListener('click', () => {
-    selectedToolIndex = (selectedToolIndex + 1) % tools.length;
-    toolDisplay.src = tools[selectedToolIndex].src;
-  });
+    // =================================================================
+    // 4. 핵심 함수
+    // =================================================================
 
-  function checkSelection() {
-    if (selectedEggIndex !== null && selectedToolIndex !== null) {
-      startGameBtn.disabled = false;
+    // 4-1. 선택 완료 확인 및 시작 버튼 활성화
+    function checkSelection() {
+        // 이미 selectedEggIndex와 selectedToolIndex가 0으로 초기화되었기 때문에
+        // 항상 null이 아니지만, 로직의 안전성을 위해 유지.
+        if (selectedEggIndex !== null && selectedToolIndex !== null) {
+            DOM.startGameBtn.disabled = false;
+        }
     }
-  }
 
-  eggDisplay.classList.add('selected');
-  toolDisplay.classList.add('selected');
-  checkSelection();
+    // 4-2. 계란/도구 선택 업데이트 로직 (함수 통합)
+    function updateSelection(isEgg, isNext) {
+        const data = isEgg ? EGG_DATA : TOOL_DATA;
+        const displayElement = isEgg ? DOM.eggDisplay : DOM.toolDisplay;
+        let currentIndex = isEgg ? selectedEggIndex : selectedToolIndex;
 
-  startGameBtn.addEventListener('click', () => {
-    selectionScreen.style.display = 'none';
-    gameScreen.style.display = 'block';
-    eggImage.src = eggs[selectedEggIndex].src;
-    toolImage.src = tools[selectedToolIndex].src;
-    eggStatus.textContent = "🐣 계란을 마구마구 때려봐 ! 🔨";
-    startGameBtn.style.display = 'none';
-  });
+        if (isNext) {
+            currentIndex = (currentIndex + 1) % data.length;
+        } else {
+            currentIndex = (currentIndex - 1 + data.length) % data.length;
+        }
 
-  eggImage.addEventListener('click', () => {
-    if (clickCount >= countStages.explode) return;
-    clickCount++;
-    counterElement.textContent = clickCount;
+        if (isEgg) selectedEggIndex = currentIndex;
+        else selectedToolIndex = currentIndex;
 
-    toolImage.style.opacity = 1;
-    toolImage.classList.add('tool-animation');
-    setTimeout(() => {
-      toolImage.classList.remove('tool-animation');
-      toolImage.style.opacity = 0;
-    }, 200);
-
-    const currentEgg = eggs[selectedEggIndex];
-    if (clickCount === countStages.crack1) {
-      eggImage.src = currentEgg.crackedImages[0];
-      eggStatus.textContent = "🐣 금 가기 시작했어 ! 🪓";
-    } else if (clickCount === countStages.crack2) {
-      eggImage.src = currentEgg.crackedImages[1];
-      eggStatus.textContent = "🐣 거의 다 왔어 ! ⛏️";
+        displayElement.src = data[currentIndex].src;
+        checkSelection();
     }
-    if (clickCount >= countStages.explode) {
-      eggImage.src = finalExplosionImage;
-      eggStatus.textContent = "🐣 스트레스 완전 박살 ! 💥";
-      eggImage.style.cursor = 'default';
+
+    // 4-3. 게임 리셋 및 화면 전환 (함수 통합)
+    function resetEggGame() {
+        // 화면 전환
+        DOM.mainScreen.style.display = "none";
+        DOM.gardenScreen.style.display = "none";
+        eggbreakScreen.style.display = "block"; // eggbreakScreen은 전역 변수
+        
+        // 상태 초기화
+        clickCount = 0;
+        selectedEggIndex = 0;
+        selectedToolIndex = 0;
+
+        // DOM 업데이트
+        DOM.selectionScreen.style.display = 'block';
+        DOM.gameScreen.style.display = 'none';
+        DOM.gameContainer.style.display = "block"; // 컨테이너 표시
+        DOM.eggStatus.textContent = "🥚 계란과 도구를 골라줘 🔨";
+        DOM.startGameBtn.disabled = false;
+        DOM.startGameBtn.style.display = 'inline-block';
+        
+        // 초기 이미지 설정
+        DOM.eggDisplay.src = EGG_DATA[0].src;
+        DOM.toolDisplay.src = TOOL_DATA[0].src;
+        DOM.counterElement.textContent = '0';
+        
+        // 초기 선택 상태 설정 (클래스)
+        DOM.eggDisplay.classList.add('selected');
+        DOM.toolDisplay.classList.add('selected');
+        checkSelection();
     }
-  });
+
+    // 4-4. 계란 클릭 시 게임 상태 업데이트
+    function handleEggClick() {
+        if (clickCount >= COUNT_STAGES.explode) return;
+        
+        clickCount++;
+        DOM.counterElement.textContent = clickCount;
+
+        // 도구 애니메이션
+        DOM.toolImage.style.opacity = 1;
+        DOM.toolImage.classList.add('tool-animation');
+        setTimeout(() => {
+            DOM.toolImage.classList.remove('tool-animation');
+            DOM.toolImage.style.opacity = 0;
+        }, 200);
+
+        // 계란 이미지 업데이트
+        const currentEgg = EGG_DATA[selectedEggIndex];
+        if (clickCount === COUNT_STAGES.crack1) {
+            DOM.eggImage.src = currentEgg.crackedImages[0];
+            DOM.eggStatus.textContent = "🐣 금 가기 시작했어 ! 🪓";
+        } else if (clickCount === COUNT_STAGES.crack2) {
+            DOM.eggImage.src = currentEgg.crackedImages[1];
+            DOM.eggStatus.textContent = "🐣 거의 다 왔어 ! ⛏️";
+        }
+        
+        // 최종 폭발
+        if (clickCount >= COUNT_STAGES.explode) {
+            DOM.eggImage.src = FINAL_EXPLOSION_IMAGE;
+            DOM.eggStatus.textContent = "🐣 스트레스 완전 박살 ! 💥";
+            DOM.eggImage.style.cursor = 'default';
+        }
+    }
+
+
+    // =================================================================
+    // 5. 이벤트 리스너 연결
+    // =================================================================
+
+    // 화면 이동 및 리셋
+    eggbreakBtn.addEventListener("click", resetEggGame);
+
+    // 계란 선택 버튼
+    DOM.prevEggBtn.addEventListener('click', () => updateSelection(true, false));
+    DOM.nextEggBtn.addEventListener('click', () => updateSelection(true, true));
+
+    // 도구 선택 버튼
+    DOM.prevToolBtn.addEventListener('click', () => updateSelection(false, false));
+    DOM.nextToolBtn.addEventListener('click', () => updateSelection(false, true));
+
+    // 게임 시작 버튼
+    DOM.startGameBtn.addEventListener('click', () => {
+        DOM.selectionScreen.style.display = 'none';
+        DOM.gameScreen.style.display = 'block';
+        DOM.eggImage.src = EGG_DATA[selectedEggIndex].src;
+        DOM.toolImage.src = TOOL_DATA[selectedToolIndex].src;
+        DOM.eggStatus.textContent = "🐣 계란을 마구마구 때려봐 ! 🔨";
+        DOM.startGameBtn.style.display = 'none';
+    });
+
+    // 계란 클릭 (핵심 플레이)
+    DOM.eggImage.addEventListener('click', handleEggClick);
+    
+    // 초기 설정 실행
+    checkSelection(); 
 });
